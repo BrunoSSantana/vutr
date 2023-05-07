@@ -1,0 +1,36 @@
+{
+  "name": "vutr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "tsx --watch src/server.ts",
+    "test": "vitest --dir src/domains",
+    "test:watch": "vitest --dir src/use-cases",
+    "test:e2e": "vitest run --dir src/domains/**/http",
+    "test:e2e:watch": "vitest watch --dir src/domains/**/http",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "buffer-from": "^1.1.2",
+    "esbuild": "^0.17.18",
+    "fastify": "4.17.0",
+    "get-tsconfig": "^4.5.0",
+    "source-map": "^0.6.1",
+    "source-map-support": "^0.5.21",
+    "vite-tsconfig-paths": "4.2.0",
+    "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@types/node": "20.1.0",
+    "@types/supertest": "2.0.12",
+    "supertest": "6.3.3",
+    "tsx": "3.12.7",
+    "typescript": "5.0.4",
+    "vitest": "0.31.0"
+  },
+  "description": ""
+}
