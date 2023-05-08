@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { ToolRepository } from "@/domains/tools/repositories";
-import { CreateToolUseCase } from "@/domains/tools/use-cases";
-import { CreateToolValidation } from "@/domains/tools/validation";
+import { CreateToolUseCase } from "@/domains/tools/core/use-cases";
+import { ToolRepository } from "@/domains/tools/core/repositories";
+import { CreateToolValidation } from "@/domains/tools/core/validation";
 
 export const createToolController =
   (

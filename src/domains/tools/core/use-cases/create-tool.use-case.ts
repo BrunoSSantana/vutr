@@ -1,5 +1,6 @@
-import { CreateToolDTO, Tool } from "@/domains/tools";
-import { ToolRepository } from "@/domains/tools/repositories";
+import { ToolRepository } from "@/domains/tools/core/repositories";
+import { CreateToolDTO, Tool } from "@/domains/tools/core/tool.entity";
+
 
 export type CreateToolUseCase = (
   toolRepository: ToolRepository

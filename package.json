@@ -6,8 +6,8 @@
     "start:dev": "tsx --watch src/server.ts",
     "test": "vitest --dir src/domains",
     "test:watch": "vitest --dir src/use-cases",
-    "test:e2e": "vitest run --dir src/domains/**/http",
-    "test:e2e:watch": "vitest watch --dir src/domains/**/http",
+    "test:e2e": "vitest run --dir src/domains/**/infra/http",
+    "test:e2e:watch": "vitest watch --dir src/domains/**/infra/http",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui"
   },

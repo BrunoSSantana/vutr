@@ -1,5 +1,5 @@
-import { CreateToolDTO } from "@/domains/tools";
-import { toolRegisterSchema } from "@/domains/tools/validation";
+import { CreateToolDTO } from "@/domains/tools/core";
+import { toolRegisterSchema } from "@/domains/tools/core/validation";
 
 export type CreateToolValidation = <T>() => {
   validate: (createToolDTO: T) => CreateToolDTO;

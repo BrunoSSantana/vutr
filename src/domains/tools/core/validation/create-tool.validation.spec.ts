@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { buildCreateToolValidation } from "./create-tool.validation";
-import { CreateToolDTO } from "../tool.entity";
+import { CreateToolDTO } from "@/domains/tools/core";
 
 describe("createToolValidation", () => {
   it("should be validate tool with correctly values", () => {

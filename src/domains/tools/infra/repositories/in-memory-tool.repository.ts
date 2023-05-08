@@ -1,5 +1,5 @@
-import { Tool, createTool } from "../tool.entity";
-import { ToolRepository } from "./type";
+import { Tool, createTool } from "../../core/tool.entity";
+import { ToolRepository } from "../../core/repositories/type";
 
 const Tools: Record<number, Tool> = {};
 
