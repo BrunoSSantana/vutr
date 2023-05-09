@@ -43,11 +43,10 @@ export type DeleteToolDTO = {
   id: number;
 };
 
-export type ListToolDTO = {
-  page: number;
-  limit: number;
-  search: string;
-  tags: string[];
+export type ListToolsDTO = {
+  search?: string;
+  page?: number;
+  limit?: number;
 };
 
 export type ToolListResponse = {
