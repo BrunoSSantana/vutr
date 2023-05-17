@@ -1,14 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+
 import { InMemoryToolRepository } from "@/domains/tools/infra/repositories";
-import { ToolRepository } from "@/domains/tools/core/repositories";
+import { IToolRepository } from "@/domains/tools/core/repositories";
+import { ListToolsDTO } from "@/domains/tools/core";
 import {
   listToolUseCase,
   ListToolUseCase,
 } from "@/domains/tools/core/use-cases";
-import { ListToolsDTO } from "../tool.entity";
 
 describe("ListToolUseCase", () => {
-  let toolsRepository: ToolRepository;
+  let toolsRepository: IToolRepository;
   let sut: ListToolUseCase;
 
   beforeEach(() => {

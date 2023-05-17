@@ -51,6 +51,12 @@ export const InMemoryToolRepository: IToolRepository = {
   },
 
   async delete(id: number): Promise<void> {
+    const tool = Tools[id];
+
+    if (!tool) {
+      throw new Error("Tool not found");
+    }
+
     delete Tools[id];
   },
 

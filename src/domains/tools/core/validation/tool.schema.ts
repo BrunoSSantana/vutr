@@ -22,3 +22,7 @@ export const toolListSchema = z.object({
   page: z.number().int().positive().optional(),
   limit: z.number().int().positive().optional(),
 });
+
+export const toolDeleteSchema = z.object({
+  toolId: z.string().transform(Number),
+});

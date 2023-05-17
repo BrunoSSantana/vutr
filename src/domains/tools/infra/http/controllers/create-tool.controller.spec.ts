@@ -1,5 +1,5 @@
 import request from "supertest";
-import { describe, it, expect, afterAll, beforeAll } from "vitest";
+import { describe, it, afterAll, beforeAll } from "vitest";
 import { app } from "@/app";
 
 describe("Create Tool", () => {

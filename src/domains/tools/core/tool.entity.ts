@@ -40,7 +40,7 @@ export type UpdateToolDTO = {
 };
 
 export type DeleteToolDTO = {
-  id: number;
+  toolId: number;
 };
 
 export type ListToolsDTO = {
