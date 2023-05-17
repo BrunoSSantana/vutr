@@ -11,8 +11,6 @@ export const deleteToolController =
     deleteToolValidation: IDeleteToolValidation
   ) =>
   async (request: FastifyRequest, reply: FastifyReply) => {
-    console.log({ params: request.params });
-
     const { toolId } = deleteToolValidation().validate(request.params);
 
     await buildDeleteToolUseCase(deleteToolRepository)({
