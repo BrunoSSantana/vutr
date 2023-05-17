@@ -1,10 +1,10 @@
-import { ToolRepository } from "@/domains/tools/core/repositories";
+import { IToolRepository } from "@/domains/tools/core/repositories";
 import { ListToolsDTO, Tool } from "@/domains/tools/core/tool.entity";
 
 export type ListToolUseCase = (listToolDTO: ListToolsDTO) => Promise<Tool[]>;
 
 export type BuildListToolUseCase = (
-  toolRepository: ToolRepository
+  toolRepository: IToolRepository
 ) => ListToolUseCase;
 
 export const listToolUseCase: BuildListToolUseCase =

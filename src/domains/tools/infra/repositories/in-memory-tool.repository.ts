@@ -1,9 +1,13 @@
-import { ListToolsDTO, Tool, createTool } from "@/domains/tools/core/tool.entity";
-import { ToolRepository } from "@/domains/tools/core/repositories/type";
+import {
+  ListToolsDTO,
+  Tool,
+  createTool,
+} from "@/domains/tools/core/tool.entity";
+import { IToolRepository } from "@/domains/tools/core/repositories/type";
 
 const Tools: Record<number, Tool> = {};
 
-export const InMemoryToolRepository: ToolRepository = {
+export const InMemoryToolRepository: IToolRepository = {
   async create(createToolDTO): Promise<Tool> {
     const id = Object.keys(Tools).length + 1;
     const tool = createTool({
@@ -36,6 +40,7 @@ export const InMemoryToolRepository: ToolRepository = {
           return true;
         }
       }
+
       return false;
     });
 
@@ -51,5 +56,5 @@ export const InMemoryToolRepository: ToolRepository = {
 
   async deleteAll(): Promise<void> {
     Object.keys(Tools).forEach((key) => delete Tools[Number(key)]);
-  }
+  },
 };

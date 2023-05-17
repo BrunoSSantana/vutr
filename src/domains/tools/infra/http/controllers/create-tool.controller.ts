@@ -1,20 +1,21 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { CreateToolUseCase } from "@/domains/tools/core/use-cases";
-import { ToolRepository } from "@/domains/tools/core/repositories";
-import { CreateToolValidation } from "@/domains/tools/core/validation";
+
+import { IBuildCreateToolUseCase } from "@/domains/tools/core/use-cases";
+import { ICreateToolValidation } from "@/domains/tools/core/validation";
+import { IToolRepository } from "@/domains/tools/core/repositories";
 
 export const createToolController =
   (
-    createToolRepository: ToolRepository,
-    createToolUseCase: CreateToolUseCase,
-    createToolValidation: CreateToolValidation
+    createToolRepository: IToolRepository,
+    buildCreateToolUseCase: IBuildCreateToolUseCase,
+    createToolValidation: ICreateToolValidation
   ) =>
   async (request: FastifyRequest, reply: FastifyReply) => {
     const { title, description, link, tags } = createToolValidation().validate(
       request.body
     );
 
-    const tool = await createToolUseCase(createToolRepository)({
+    const tool = await buildCreateToolUseCase(createToolRepository)({
       title,
       description,
       link,

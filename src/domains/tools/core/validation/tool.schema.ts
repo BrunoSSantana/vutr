@@ -16,3 +16,9 @@ export const toolUpdateSchema = z.object({
   description: z.string().min(1).max(255).optional(),
   tags: z.array(z.string().regex(regexTags)).max(255).optional(),
 });
+
+export const toolListSchema = z.object({
+  search: z.string().optional(),
+  page: z.number().int().positive().optional(),
+  limit: z.number().int().positive().optional(),
+});
