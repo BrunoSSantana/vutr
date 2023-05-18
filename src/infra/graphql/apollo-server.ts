@@ -1,30 +1,16 @@
-import { readFileSync } from "fs";
-
-import { InMemoryToolRepository } from "@/domains/tools/infra/repositories";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { ApolloServer } from "@apollo/server";
-import { tools } from "@/domains/tools/infra/http/resolvers/list-tools.resolver";
-import { tool } from "@/domains/tools/infra/http/resolvers/create-tool.resolver";
-import { deleteTool } from "@/domains/tools/infra/http/resolvers/delete-tool.resolver";
+import { readFileSync } from "fs";
+
+import { resolvers } from "./resolvers";
 
 const typeDefs = readFileSync("./src/infra/graphql/schema.graphql", {
   encoding: "utf-8",
 });
 
-const resolvers = {
-  Query: {
-    tools,
-  },
-
-  Mutation: {
-    tool,
-    deleteTool,
-  },
-};
-
 const server = new ApolloServer({
   typeDefs,
-  resolvers,
+  resolvers: resolvers,
 });
 
 export const gqlServerStart = async () => {

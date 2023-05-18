@@ -1,12 +1,23 @@
-import { InMemoryToolRepository } from "../../repositories";
+import { IToolRepository } from "@/domains/tools/core/repositories";
+import { IBuildCreateToolUseCase } from "@/domains/tools/core/use-cases";
+import { ICreateToolValidation } from "@/domains/tools/core/validation";
 
-export const tool = (_parent, args, _contextValue, _info) => {
-  const { title, link, description, tags } = args;
+export const createToolResolver =
+  (
+    createToolRepository: IToolRepository,
+    buildCreateToolUseCase: IBuildCreateToolUseCase,
+    createToolValidation: ICreateToolValidation
+  ) =>
+  async (_parent, args, _contextValue, _info) => {
+    const { title, description, link, tags } =
+      createToolValidation().validate(args);
 
-  return InMemoryToolRepository.create({
-    title,
-    link,
-    description,
-    tags,
-  });
-};
+    const tool = await buildCreateToolUseCase(createToolRepository)({
+      title,
+      description,
+      link,
+      tags,
+    });
+
+    return tool;
+  };
