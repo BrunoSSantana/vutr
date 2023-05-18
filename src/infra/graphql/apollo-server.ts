@@ -17,5 +17,5 @@ export const gqlServerStart = async () => {
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
   });
-  console.log(`🚀  Server ready at: ${url}`);
+  console.log(`🚀 API GRAPHQL Running in ${url}`);
 };

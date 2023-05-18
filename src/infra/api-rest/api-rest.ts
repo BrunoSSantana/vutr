@@ -6,11 +6,9 @@ import Fastify, {
 import { ZodError } from "zod";
 import { toolsRoutes } from "@/domains/tools/infra/http/routes";
 
-export const app: FastifyInstance = Fastify({});
+const PORT = Number(process.env.PORT) || 3000;
 
-app.addContentTypeParser("multipart/form-data", {}, (req, payload, done) =>
-  done(null)
-);
+export const app: FastifyInstance = Fastify({});
 
 app.register(toolsRoutes);
 
@@ -27,6 +25,6 @@ app.setErrorHandler(
 );
 
 export const apiRestStart = async () => {
-  await app.listen({ host: "0.0.0.0", port: 3000 });
-  console.log("🚀 HTTP Server Running!");
+  await app.listen({ host: "0.0.0.0", port: PORT });
+  console.log(`🚀 API REST Running in http://localhost:${PORT}/`);
 };
