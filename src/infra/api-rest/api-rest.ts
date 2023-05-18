@@ -5,7 +5,7 @@ import Fastify, {
 } from "fastify";
 import { ZodError } from "zod";
 import { toolsRoutes } from "@/domains/tools/infra/http/routes";
-import { gqlServer } from "@/domains/tools/infra/graphql/gql-server";
+import { gqlServer } from "@/infra/graphql/gql-server";
 
 export const app: FastifyInstance = Fastify({});
 

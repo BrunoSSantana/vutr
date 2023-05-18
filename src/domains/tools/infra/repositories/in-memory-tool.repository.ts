@@ -36,12 +36,10 @@ export const InMemoryToolRepository: IToolRepository = {
           description.includes(search) ||
           tags.includes(search);
 
-        if (hasSearch) {
-          return true;
-        }
+        return hasSearch;
       }
 
-      return false;
+      return true;
     });
 
     const page = listToolsDTO.page ?? 1;

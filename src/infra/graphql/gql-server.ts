@@ -1,4 +1,4 @@
-import { app } from "@/app";
+import { app } from "@/infra/api-rest/api-rest";
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { createSchema, createYoga } from "graphql-yoga";
 

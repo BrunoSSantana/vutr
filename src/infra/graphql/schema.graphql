@@ -1,0 +1,27 @@
+type Query {
+  tools(search: String, page: Int, limit: Int): [Tool]
+}
+
+type Tool {
+  id: ID!
+  title: String
+  link: String
+  description: String
+  tags: [String]
+
+  createdAt: String
+  updatedAt: String
+}
+
+# type AddToolMutationResponse {
+#   code: String!
+#   success: Boolean!
+#   message: String!
+#   tool: Tool
+# }
+
+type Mutation {
+  tool(title: String, link: String, description: String, tags: [String]): Tool
+
+  deleteTool(id: ID!): Boolean
+}

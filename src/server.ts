@@ -1,4 +1,5 @@
-import { app } from "@/app";
+import "@/infra/graphql/apollo-server";
+import { app } from "@/infra/api-rest/api-rest";
 
 app.listen({ host: "0.0.0.0", port: 3000 }, (err) => {
   if (err) {

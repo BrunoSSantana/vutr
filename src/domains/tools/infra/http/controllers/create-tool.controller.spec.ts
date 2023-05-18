@@ -1,6 +1,6 @@
 import request from "supertest";
 import { describe, it, afterAll, beforeAll } from "vitest";
-import { app } from "@/app";
+import { app } from "@/infra/api-rest/api-rest";
 
 describe("Create Tool", () => {
   beforeAll(async () => {
