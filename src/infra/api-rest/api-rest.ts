@@ -5,7 +5,6 @@ import Fastify, {
 } from "fastify";
 import { ZodError } from "zod";
 import { toolsRoutes } from "@/domains/tools/infra/http/routes";
-import { gqlServer } from "@/infra/graphql/gql-server";
 
 export const app: FastifyInstance = Fastify({});
 
@@ -14,7 +13,6 @@ app.addContentTypeParser("multipart/form-data", {}, (req, payload, done) =>
 );
 
 app.register(toolsRoutes);
-app.register(gqlServer);
 
 app.setErrorHandler(
   (error: Error, _req: FastifyRequest, reply: FastifyReply) => {
@@ -27,3 +25,8 @@ app.setErrorHandler(
     return reply.status(500).send({ message: error.message });
   }
 );
+
+export const apiRestStart = async () => {
+  await app.listen({ host: "0.0.0.0", port: 3000 });
+  console.log("🚀 HTTP Server Running!");
+};
