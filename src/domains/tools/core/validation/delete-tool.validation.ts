@@ -7,15 +7,13 @@ export type IDeleteToolValidation = <Type>() => {
 
 export const buildDeleteToolValidation: IDeleteToolValidation = <Type>() => {
   const validate = (deleteToolDTO: Type) => {
-    const resultToolDeleteParse = toolDeleteSchema.safeParse(deleteToolDTO);
+    try {
+      const resultToolDeleteParse = toolDeleteSchema.parse(deleteToolDTO);
 
-    if (!resultToolDeleteParse.success) {
-      const error = JSON.stringify(resultToolDeleteParse.error.format());
-
+      return resultToolDeleteParse as DeleteToolDTO;
+    } catch (error) {
       throw new Error(error);
     }
-
-    return resultToolDeleteParse.data;
   };
 
   return {

@@ -7,15 +7,13 @@ export type ICreateToolValidation = <Type>() => {
 
 export const buildCreateToolValidation: ICreateToolValidation = <Type>() => {
   const validate = (createToolDTO: Type) => {
-    const resultToolRegisterParse = toolRegisterSchema.safeParse(createToolDTO);
+    try {
+      const resultToolRegisterParse = toolRegisterSchema.parse(createToolDTO);
 
-    if (!resultToolRegisterParse.success) {
-      const error = JSON.stringify(resultToolRegisterParse.error.format());
-
+      return resultToolRegisterParse as CreateToolDTO;
+    } catch (error) {
       throw new Error(error);
     }
-
-    return resultToolRegisterParse.data;
   };
 
   return {

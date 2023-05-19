@@ -7,7 +7,7 @@ type Tool {
   title: String
   link: String
   description: String
-  tags: [String]
+  tags: [Tag]
 
   createdAt: String
   updatedAt: String
@@ -20,8 +20,13 @@ type Tool {
 #   tool: Tool
 # }
 
-type Mutation {
-  tool(title: String, link: String, description: String, tags: [String]): Tool
+type Tag {
+  id: ID!
+  title: String
+}
 
-  deleteTool(id: ID!): Boolean
+type Mutation {
+  tool(title: String, link: String, description: String): Tool
+
+  deleteTool(toolId: ID!): Boolean
 }

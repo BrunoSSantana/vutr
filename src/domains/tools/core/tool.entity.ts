@@ -1,9 +1,11 @@
+import { Tag } from "./tag.entity";
+
 export type Tool = {
   id: number;
   title: string;
   link: string;
   description: string;
-  tags: string[];
+  tags?: Tag[];
 
   createdAt: Date;
   updatedAt: Date;
@@ -29,14 +31,12 @@ export type CreateToolDTO = {
   title: string;
   link: string;
   description: string;
-  tags: string[];
 };
 
 export type UpdateToolDTO = {
   title?: string;
   link?: string;
   description?: string;
-  tags?: string[];
 };
 
 export type DeleteToolDTO = {

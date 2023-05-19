@@ -3,7 +3,7 @@ import {
   deleteToolControllerFactory,
   createToolControllerFactory,
   listToolControllerFactory,
-} from "@/domains/tools/infra/factories";
+} from "@/domains/tools/infra/factories/controllers";
 
 export async function toolsRoutes(app: FastifyInstance) {
   app.post("/tool", createToolControllerFactory());

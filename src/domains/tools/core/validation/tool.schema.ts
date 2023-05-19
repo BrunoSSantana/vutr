@@ -7,7 +7,7 @@ export const toolRegisterSchema = z.object({
   title: z.string().min(1).max(255),
   link: z.string().regex(regexLink),
   description: z.string().min(1).max(255),
-  tags: z.array(z.string().regex(regexTags)).min(1).max(255),
+  // tags: z.array(z.string().regex(regexTags)).min(1).max(255),
 });
 
 export const toolUpdateSchema = z.object({
