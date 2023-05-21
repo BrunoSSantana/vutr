@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { InMemoryToolRepository } from "@/domains/tools/infra/repositories";
+import { InMemoryToolRepository } from "@/domains/tools/infra/repositories/in-memory";
 import { IToolRepository } from "@/domains/tools/core/repositories";
 import {
   createToolUseCase,
