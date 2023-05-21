@@ -13,7 +13,7 @@ const server = new ApolloServer({
   resolvers: resolvers,
 });
 
-export const gqlServerStart = async () => {
+export const apolloGQLServerStart = async () => {
   const { url } = await startStandaloneServer(server, {
     listen: { port: 4000 },
   });

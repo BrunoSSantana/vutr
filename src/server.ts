@@ -1,9 +1,9 @@
 import "dotenv/config";
 
-import { restStart } from "@/infra/api-rest/api-rest";
-import { gqlServerStart } from "@/infra/graphql/apollo-server";
+import { fastifyRESTServerStart } from "@/infra/rest/fastify-server";
+import { apolloGQLServerStart } from "@/infra/graphql/apollo-server";
 import { bootFirebase } from "@/infra/repositories/firebase/firestore";
 
 bootFirebase();
-await restStart();
-await gqlServerStart();
+await fastifyRESTServerStart();
+await apolloGQLServerStart();
