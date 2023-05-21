@@ -1,8 +1,8 @@
 import {
-  createToolResolverFactory,
   listToolResolverFactory,
+  createToolResolverFactory,
   deleteToolResolverFactory,
-} from "@/domains/tools/infra/factories/resolvers";
+} from "@/domains/tools/factories/resolvers";
 
 export const resolvers = {
   Query: {
