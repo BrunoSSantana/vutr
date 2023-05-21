@@ -9,14 +9,13 @@ export const createToolResolver =
     createToolValidation: ICreateToolValidation
   ) =>
   async (_parent, args, _contextValue, _info) => {
-    const { title, description, link, tags } =
+    const { title, description, link } =
       createToolValidation().validate(args);
 
     const tool = await buildCreateToolUseCase(createToolRepository)({
       title,
       description,
       link,
-      tags,
     });
 
     return tool;
