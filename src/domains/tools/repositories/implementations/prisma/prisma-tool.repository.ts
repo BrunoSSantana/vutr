@@ -2,7 +2,9 @@ import { CreateToolDTO, Tool, ListToolsDTO } from "@/domains/tools";
 import { IToolRepository } from "@/domains/tools/repositories";
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ["query"],
+});
 
 export const PrismaToolRepository: IToolRepository = {
   async create(createToolDTO: CreateToolDTO): Promise<Tool> {
@@ -12,11 +14,6 @@ export const PrismaToolRepository: IToolRepository = {
           title: createToolDTO.title,
           link: createToolDTO.link,
           description: createToolDTO.description,
-          // tags: {
-          //   create: createToolDTO.tags.map((tag) => ({
-          //     title: tag,
-          //   })),
-          // },
         },
         include: {
           tags: true,
@@ -32,7 +29,7 @@ export const PrismaToolRepository: IToolRepository = {
     const { search, page = 1, limit = 10 } = listToolDTO;
     try {
       const tools = await prisma.tool.findMany({
-        where: search? {
+        where: search ? {
           OR: [
             {
               title: {
@@ -69,7 +66,7 @@ export const PrismaToolRepository: IToolRepository = {
 
       return tools;
     } catch (error) {
-      throw new Error(error);
+      return [];
     }
   },
   async delete(id: number): Promise<void> {
@@ -81,5 +78,16 @@ export const PrismaToolRepository: IToolRepository = {
   },
   async deleteAll(): Promise<void> {
     await prisma.tool.deleteMany({});
+  },
+  async update(updateToolDTO) {
+    const { id, ...data } = updateToolDTO;
+    const tool = await prisma.tool.update({
+      where: {
+        id,
+      },
+      data,
+    });
+
+    return tool;
   },
 };

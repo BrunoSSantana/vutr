@@ -1,7 +1,7 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { BuildListToolUseCase } from "@/domains/tools/core/use-cases";
-import { IToolRepository } from "@/domains/tools/core/repositories";
-import { IListToolValidationBuild } from "@/domains/tools/core/validation";
+import { BuildListToolUseCase } from "@/domains/tools/usecases";
+import { IToolRepository } from "@/domains/tools/repositories";
+import { IListToolValidationBuild } from "@/domains/tools/validation/types";
 
 export const listToolController =
   (

@@ -1,7 +1,6 @@
 import { IToolRepository } from "@/domains/tools/repositories";
-import { BuildListToolUseCase } from "@/domains/tools/use-cases";
+import { BuildListToolUseCase } from "@/domains/tools/usecases";
 import { IListToolValidationBuild } from "@/domains/tools/validation/types";
-
 
 export const listToolResolver =
   (

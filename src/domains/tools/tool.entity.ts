@@ -34,6 +34,7 @@ export type CreateToolDTO = {
 };
 
 export type UpdateToolDTO = {
+  id: number;
   title?: string;
   link?: string;
   description?: string;

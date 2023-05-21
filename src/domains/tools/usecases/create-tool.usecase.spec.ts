@@ -4,7 +4,7 @@ import { IToolRepository } from "@/domains/tools/repositories";
 import {
   createToolUseCase,
   ICreateToolUseCase,
-} from "@/domains/tools/use-cases";
+} from "@/domains/tools/usecases";
 
 describe("CreateToolUseCase", () => {
   let toolsRepository: IToolRepository;

@@ -3,10 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { InMemoryToolRepository } from "@/domains/tools/repositories/implementations/in-memory";
 import { IToolRepository } from "@/domains/tools/repositories";
 import { ListToolsDTO } from "@/domains/tools";
-import {
-  listToolUseCase,
-  ListToolUseCase,
-} from "@/domains/tools/use-cases";
+import { listToolUseCase, ListToolUseCase } from "@/domains/tools/usecases";
 
 describe("ListToolUseCase", () => {
   let toolsRepository: IToolRepository;

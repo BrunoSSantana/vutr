@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { IBuildDeleteToolUseCase } from "@/domains/tools/core/use-cases";
-import { IDeleteToolValidation } from "@/domains/tools/core/validation";
-import { IToolRepository } from "@/domains/tools/core/repositories";
+import { IBuildDeleteToolUseCase } from "@/domains/tools/usecases";
+import { IDeleteToolValidation } from "@/domains/tools/validation/types";
+import { IToolRepository } from "@/domains/tools/repositories";
 
 export const deleteToolController =
   (
@@ -10,12 +10,12 @@ export const deleteToolController =
     buildDeleteToolUseCase: IBuildDeleteToolUseCase,
     deleteToolValidation: IDeleteToolValidation
   ) =>
-  async (request: FastifyRequest, reply: FastifyReply) => {
-    const { toolId } = deleteToolValidation().validate(request.params);
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const { toolId } = deleteToolValidation().validate(request.params);
 
-    await buildDeleteToolUseCase(deleteToolRepository)({
-      toolId,
-    });
+      await buildDeleteToolUseCase(deleteToolRepository)({
+        toolId,
+      });
 
-    return reply.status(204).send();
-  };
+      return reply.status(204).send();
+    };

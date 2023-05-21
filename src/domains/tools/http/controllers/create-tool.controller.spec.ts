@@ -1,11 +1,17 @@
 import request from "supertest";
-import { describe, it, afterAll, beforeAll } from "vitest";
-import { app } from "@/infra/rest/api-rest";
+import { describe, it, afterAll, beforeAll, afterEach } from "vitest";
+import { app } from "@/infra/rest/fastify-server";
+import { PrismaClient } from "@prisma/client";
 
 describe("Create Tool", () => {
   beforeAll(async () => {
     await app.ready();
   });
+
+  afterEach(async () => {
+    const prisma = new PrismaClient();
+    await prisma.tool.deleteMany();
+  })
 
   afterAll(async () => {
     await app.close();
@@ -17,9 +23,7 @@ describe("Create Tool", () => {
       .send({
         title: "fastify",
         link: "https://www.fastify.io/",
-        description:
-          "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
-        tags: ["node", "framework", "http2", "https"],
+        description: "Extremely fast.",
       })
       .expect(201);
   });

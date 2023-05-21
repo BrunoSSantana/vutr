@@ -1,6 +1,7 @@
 import {
   ListToolsDTO,
   Tool,
+  UpdateToolDTO,
   createTool,
 } from "@/domains/tools/tool.entity";
 import { IToolRepository } from "@/domains/tools/repositories/type";
@@ -61,4 +62,21 @@ export const InMemoryToolRepository: IToolRepository = {
   async deleteAll(): Promise<void> {
     Object.keys(Tools).forEach((key) => delete Tools[Number(key)]);
   },
+
+  async update(updateToolDTO: UpdateToolDTO): Promise<Tool> {
+    const tool = Tools[updateToolDTO.id];
+
+    if (!tool) {
+      throw new Error("Tool not found");
+    }
+
+    const updatedTool = createTool({
+      ...tool,
+      ...updateToolDTO,
+    });
+
+    Tools[updateToolDTO.id] = updatedTool;
+
+    return updatedTool;
+  }
 };

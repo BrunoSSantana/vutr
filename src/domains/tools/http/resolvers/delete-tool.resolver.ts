@@ -1,5 +1,5 @@
 import { IToolRepository } from "@/domains/tools/repositories";
-import { IBuildDeleteToolUseCase } from "@/domains/tools/use-cases";
+import { IBuildDeleteToolUseCase } from "@/domains/tools/usecases";
 import { IDeleteToolValidation } from "@/domains/tools/validation/types";
 
 export const deleteToolResolver =

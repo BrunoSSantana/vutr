@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { IBuildCreateToolUseCase } from "@/domains/tools/core/use-cases";
-import { ICreateToolValidation } from "@/domains/tools/core/validation";
-import { IToolRepository } from "@/domains/tools/core/repositories";
+import { IBuildCreateToolUseCase } from "@/domains/tools/usecases";
+import { ICreateToolValidation } from "@/domains/tools/validation/types";
+import { IToolRepository } from "@/domains/tools/repositories";
 
 export const createToolController =
   (
@@ -11,7 +11,7 @@ export const createToolController =
     createToolValidation: ICreateToolValidation
   ) =>
   async (request: FastifyRequest, reply: FastifyReply) => {
-    const { title, description, link, tags } = createToolValidation().validate(
+    const { title, description, link } = createToolValidation().validate(
       request.body
     );
 
@@ -19,7 +19,6 @@ export const createToolController =
       title,
       description,
       link,
-      tags,
     });
 
     return reply.status(201).send(tool);

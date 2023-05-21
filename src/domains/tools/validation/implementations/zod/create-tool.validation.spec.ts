@@ -24,33 +24,4 @@ describe("createToolValidation", () => {
       });
     }).toThrowError();
   });
-
-  it("should be not validate tool with invalid tags", () => {
-    expect(() => {
-      const createTollValidation = buildCreateToolValidation<CreateToolDTO>();
-      createTollValidation.validate({
-        title: "title",
-        description: "description",
-        link: "http://link.com",
-      });
-    }).toThrowError();
-
-    expect(() => {
-      const createTollValidation = buildCreateToolValidation<CreateToolDTO>();
-      createTollValidation.validate({
-        title: "title",
-        description: "description",
-        link: "http://link.com",
-      });
-    }).toThrowError();
-
-    expect(() => {
-      const createTollValidation = buildCreateToolValidation<CreateToolDTO>();
-      createTollValidation.validate({
-        title: "title",
-        description: "description",
-        link: "http://link.com",
-      });
-    }).toThrowError();
-  });
 });

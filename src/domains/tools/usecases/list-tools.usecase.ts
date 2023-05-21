@@ -1,5 +1,5 @@
-import { IToolRepository } from "@/domains/tools/core/repositories";
-import { ListToolsDTO, Tool } from "@/domains/tools/core/tool.entity";
+import { IToolRepository } from "@/domains/tools/repositories";
+import { ListToolsDTO, Tool } from "@/domains/tools/tool.entity";
 
 export type ListToolUseCase = (listToolDTO: ListToolsDTO) => Promise<Tool[]>;
 
