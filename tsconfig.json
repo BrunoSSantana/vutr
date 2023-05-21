@@ -6,11 +6,13 @@
     "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "types": ["node"],
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"]
     },
   },
   "include": ["/**/*.ts"],
