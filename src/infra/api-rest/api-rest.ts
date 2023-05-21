@@ -5,14 +5,12 @@ import Fastify, {
 } from "fastify";
 import { ZodError } from "zod";
 import { toolsRoutes } from "@/domains/tools/infra/http/routes";
-import { firestoreRoutes } from "@/domains/noSql";
 
 const PORT = Number(process.env.PORT) || 3000;
 
 export const app: FastifyInstance = Fastify({});
 
 app.register(toolsRoutes);
-app.register(firestoreRoutes)
 
 app.setErrorHandler(
   (error: Error, _req: FastifyRequest, reply: FastifyReply) => {
