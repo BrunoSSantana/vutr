@@ -5,5 +5,5 @@ import { apolloGQLServerStart } from "@/infra/graphql/apollo-server";
 import { bootFirebase } from "@/infra/repositories/firebase/firestore";
 
 bootFirebase();
-await fastifyRESTServerStart();
-await apolloGQLServerStart();
+fastifyRESTServerStart().then();
+apolloGQLServerStart().then();
