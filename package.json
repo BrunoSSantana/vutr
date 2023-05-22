@@ -5,6 +5,9 @@
   "type": "module",
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
+    "build": "tsup src/server.ts --format esm --minify",
+    "start": "node dist/server.js",
+    "start:prod": "npm run build && npm run start",
     "prisma:generate": "prisma generate --schema=./src/infra/repositories/prisma/schema.prisma",
     "prisma:migrate": "prisma migrate dev --schema=./src/infra/repositories/prisma/schema.prisma",
     "prisma:migrate:push": "prisma migrate deploy --schema=./src/infra/repositories/prisma/schema.prisma",
