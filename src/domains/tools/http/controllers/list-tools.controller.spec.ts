@@ -37,8 +37,6 @@ describe("List Tool", () => {
     const toolsListeds = await request(app.server)
       .get(`/tools`);
 
-    console.log({ body: toolsListeds.body })
-
     expect(toolsListeds.body).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
