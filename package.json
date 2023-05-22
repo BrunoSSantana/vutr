@@ -9,7 +9,7 @@
     "prisma:migrate": "prisma migrate dev --schema=./src/infra/repositories/prisma/schema.prisma",
     "prisma:migrate:push": "prisma migrate deploy --schema=./src/infra/repositories/prisma/schema.prisma",
     "prisma:studio": "prisma studio --schema=./src/infra/repositories/prisma/schema.prisma",
-    "deploy": "prisma:generate && prisma:migrate:deploy",
+    "deploy:db": "prisma:generate && prisma:migrate:deploy",
     "test": "vitest run --dir src/domains/**/usecases --no-threads && vitest run --dir src/domains/**/validation --no-threads",
     "test:watch": "vitest --dir src/usecases",
     "test:e2e": "vitest run --dir src/domains/**/http --no-threads && vitest run --dir src/domains/**/repositories --no-threads",
