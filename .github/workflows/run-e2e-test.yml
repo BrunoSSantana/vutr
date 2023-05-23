@@ -31,6 +31,6 @@ jobs:
 
       - run: npm ci
       - run: npm run deploy:db
-          env:
-            DATABASE_URL: "postgresql://docker:docker@localhost:5432/vutr?schema=public"
+        env:
+          DATABASE_URL: "postgresql://docker:docker@localhost:5432/vutr?schema=public"
       - run: npm run test:e2e
