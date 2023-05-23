@@ -19,7 +19,7 @@ jobs:
         env:
           POSTGRESQL_USERNAME: docker
           POSTGRESQL_PASSWORD: docker
-          POSTGRESQL_DATABASE: postgres
+          POSTGRESQL_DATABASE: vutr
 
     steps:
       - uses: actions/checkout@v3
@@ -31,6 +31,6 @@ jobs:
 
       - run: npm ci
       - run: npm run deploy:db
+          env:
+            DATABASE_URL: "postgresql://docker:docker@localhost:5432/vutr?schema=public"
       - run: npm run test:e2e
-        env:
-          DATABASE_URL: "postgresql://docker:docker@localhost:5432/postgres?schema=public"
