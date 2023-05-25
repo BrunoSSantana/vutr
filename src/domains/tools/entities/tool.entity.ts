@@ -1,4 +1,5 @@
-import { Tag } from "./tag.entity";
+import { User } from "@/domains/users/entities";
+import { Tag } from "@/domains/tools/entities";
 
 export type Tool = {
   id: number;
@@ -6,6 +7,9 @@ export type Tool = {
   link: string;
   description: string;
   tags?: Tag[];
+
+  userId?: number;
+  user?: User
 
   createdAt: Date;
   updatedAt: Date;
@@ -31,6 +35,7 @@ export type CreateToolDTO = {
   title: string;
   link: string;
   description: string;
+  userId?: number;
 };
 
 export type UpdateToolDTO = {
@@ -38,6 +43,7 @@ export type UpdateToolDTO = {
   title?: string;
   link?: string;
   description?: string;
+  userId?: number;
 };
 
 export type DeleteToolDTO = {
