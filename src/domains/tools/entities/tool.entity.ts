@@ -4,8 +4,8 @@ import { Tag } from "@/domains/tools/entities";
 export type Tool = {
   id: number;
   title: string;
-  link: string;
-  description: string;
+  link?: string;
+  description?: string;
   tags?: Tag[];
 
   userId?: number;
