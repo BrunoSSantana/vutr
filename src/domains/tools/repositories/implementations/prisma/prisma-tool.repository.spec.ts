@@ -1,5 +1,5 @@
 import { PrismaToolRepository } from './prisma-tool.repository';
-import { CreateToolDTO, ListToolsDTO } from '@/domains/tools';
+import { CreateToolDTO, ListToolsDTO } from '@/domains/tools/entities';
 import { PrismaClient } from '@prisma/client';
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 
@@ -26,21 +26,26 @@ describe('PrismaToolRepository', () => {
         description: 'A tool for testing',
       };
 
-      const tool = await PrismaToolRepository.create(createToolDTO);
+      const prismaToolRepository = new PrismaToolRepository();
+
+
+      const tool = await prismaToolRepository.create(createToolDTO);
 
       expect(tool.title).toEqual(createToolDTO.title);
       expect(tool.link).toEqual(createToolDTO.link);
       expect(tool.description).toEqual(createToolDTO.description);
     });
 
-    it('should not create a tool without titlw', async () => {
-      const createToolDTO: CreateToolDTO = {
+    it('should not create a tool without title', async () => {
+      const createToolDTO: any = {
         title: undefined,
         link: 'https://testtool.com',
         description: 'A tool for testing',
       };
 
-      await expect(PrismaToolRepository.create(createToolDTO)).rejects.toThrow();
+      const prismaToolRepository = new PrismaToolRepository();
+
+      await expect(prismaToolRepository.create(createToolDTO)).rejects.toThrow();
     });
   });
 
@@ -58,7 +63,9 @@ describe('PrismaToolRepository', () => {
 
       const listToolDTO: ListToolsDTO = {};
 
-      const tools = await PrismaToolRepository.list(listToolDTO);
+      const prismaToolRepository = new PrismaToolRepository();
+
+      const tools = await prismaToolRepository.list(listToolDTO);
 
       expect(tools.length).toEqual(1);
       expect(tools[0].title).toEqual(createToolDTO.title);
@@ -81,7 +88,9 @@ describe('PrismaToolRepository', () => {
         search: 'testing',
       };
 
-      const tools = await PrismaToolRepository.list(listToolDTO);
+      const prismaToolRepository = new PrismaToolRepository();
+
+      const tools = await prismaToolRepository.list(listToolDTO);
 
       expect(tools.length).toEqual(1);
       expect(tools[0].title).toEqual(createToolDTO.title);
@@ -104,7 +113,9 @@ describe('PrismaToolRepository', () => {
         page: 0,
       };
 
-      const tools = await PrismaToolRepository.list(listToolDTO);
+      const prismaToolRepository = new PrismaToolRepository();
+
+      const tools = await prismaToolRepository.list(listToolDTO);
 
       expect(tools.length).toEqual(0);
     }
@@ -124,7 +135,9 @@ describe('PrismaToolRepository', () => {
         data: createToolDTO,
       });
 
-      await PrismaToolRepository.delete(tool.id);
+      const prismaToolRepository = new PrismaToolRepository();
+
+      await prismaToolRepository.delete(tool.id);
 
       const deletedTool = await prisma.tool.findUnique({
         where: {
@@ -148,7 +161,9 @@ describe('PrismaToolRepository', () => {
         data: createToolDTO,
       });
 
-      await PrismaToolRepository.deleteAll();
+      const prismaToolRepository = new PrismaToolRepository();
+
+      await prismaToolRepository.deleteAll();
 
       const tools = await prisma.tool.findMany();
 
@@ -175,7 +190,9 @@ describe('PrismaToolRepository', () => {
         description: 'An updated tool for testing',
       };
 
-      const updatedTool = await PrismaToolRepository.update(updateToolDTO);
+      const prismaToolRepository = new PrismaToolRepository();
+
+      const updatedTool = await prismaToolRepository.update(updateToolDTO);
 
       expect(updatedTool.title).toEqual(updateToolDTO.title);
       expect(updatedTool.link).toEqual(updateToolDTO.link);

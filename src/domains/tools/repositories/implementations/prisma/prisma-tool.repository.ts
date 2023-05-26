@@ -1,10 +1,11 @@
-import { CreateToolDTO, Tool, ListToolsDTO } from "@/domains/tools";
+import { CreateToolDTO, Tool, ListToolsDTO, UpdateToolDTO } from "@/domains/tools/entities";
 import { IToolRepository } from "@/domains/tools/repositories";
 import { PrismaClient } from "@prisma/client";
+import { toolParse } from "./tool-parse";
 
 const prisma = new PrismaClient();
 
-export const PrismaToolRepository: IToolRepository = {
+export class PrismaToolRepository implements IToolRepository  {
   async create(createToolDTO: CreateToolDTO): Promise<Tool> {
     try {
       const tool = await prisma.tool.create({
@@ -18,11 +19,12 @@ export const PrismaToolRepository: IToolRepository = {
         },
       });
 
-      return tool;
+      return toolParse(tool);
     } catch (error) {
       throw new Error('Error to create tool');
     }
-  },
+  }
+
   async list(listToolDTO: ListToolsDTO): Promise<Tool[]> {
     const { search, page = 1, limit = 10 } = listToolDTO;
     try {
@@ -62,11 +64,12 @@ export const PrismaToolRepository: IToolRepository = {
         take: limit,
       });
 
-      return tools;
+      return tools.map(toolParse);
     } catch (error) {
       return [];
     }
-  },
+  }
+
   async delete(id: number): Promise<void> {
     try {
       await prisma.tool.delete({
@@ -78,11 +81,13 @@ export const PrismaToolRepository: IToolRepository = {
     catch (error) {
       throw new Error('Error to delete tool');
     }
-  },
+  }
+
   async deleteAll(): Promise<void> {
     await prisma.tool.deleteMany({});
-  },
-  async update(updateToolDTO) {
+  }
+
+  async update(updateToolDTO: UpdateToolDTO): Promise<Tool> {
     const { id, ...data } = updateToolDTO;
 
     try {
@@ -93,9 +98,9 @@ export const PrismaToolRepository: IToolRepository = {
         data,
       });
 
-      return tool;
+      return toolParse(tool);
     } catch (error) {
       throw new Error('Error to update tool');
     }
-  },
+  }
 };
