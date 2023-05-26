@@ -1,16 +1,19 @@
-import { DeleteToolDTO } from "@/domains/tools";
+import { formatZodError } from "@/utils";
+
 import { toolDeleteSchema } from "@/domains/tools/validation/implementations/zod/tool.schema";
 import { IDeleteToolValidation } from "@/domains/tools/validation/types";
 
 export const buildDeleteToolValidation: IDeleteToolValidation = <Type>() => {
   const validate = (deleteToolDTO: Type) => {
-    try {
-      const resultToolDeleteParse = toolDeleteSchema.parse(deleteToolDTO);
+    const resultToolDeleteParse = toolDeleteSchema.safeParse(deleteToolDTO);
 
-      return resultToolDeleteParse as DeleteToolDTO;
-    } catch (error) {
-      throw new Error(error);
+    if (!resultToolDeleteParse.success) {
+      const errorsFormated = formatZodError(resultToolDeleteParse)
+      throw new Error(errorsFormated);
     }
+
+    return resultToolDeleteParse.data;
+
   };
 
   return {
