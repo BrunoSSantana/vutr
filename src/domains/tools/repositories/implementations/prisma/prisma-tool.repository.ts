@@ -5,7 +5,7 @@ import { toolParse } from "./tool-parse";
 
 const prisma = new PrismaClient();
 
-export class PrismaToolRepository implements IToolRepository  {
+export class PrismaToolRepository implements IToolRepository {
   async create(createToolDTO: CreateToolDTO): Promise<Tool> {
     try {
       const tool = await prisma.tool.create({
@@ -27,36 +27,38 @@ export class PrismaToolRepository implements IToolRepository  {
 
   async list(listToolDTO: ListToolsDTO): Promise<Tool[]> {
     const { search, page = 1, limit = 10 } = listToolDTO;
-    try {
-      const tools = await prisma.tool.findMany({
-        where: search ? {
-          OR: [
-            {
+    const where = search ? {
+      OR: [
+        {
+          title: {
+            contains: search,
+          },
+        },
+        {
+          description: {
+            contains: search,
+          },
+        },
+        {
+          link: {
+            contains: search,
+          },
+        },
+        {
+          tags: {
+            some: {
               title: {
                 contains: search,
               },
             },
-            {
-              description: {
-                contains: search,
-              },
-            },
-            {
-              link: {
-                contains: search,
-              },
-            },
-            {
-              tags: {
-                some: {
-                  title: {
-                    contains: search,
-                  },
-                },
-              },
-            },
-          ],
-        } : {},
+          },
+        },
+      ],
+    } : {};
+
+    try {
+      const tools = await prisma.tool.findMany({
+        where,
         include: {
           tags: true,
         },

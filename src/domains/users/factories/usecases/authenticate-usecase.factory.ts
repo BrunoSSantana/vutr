@@ -1,8 +1,13 @@
-import { FirebaseAuthenticatorGateway } from "../../gateways/implementation/firebase/firebase-authenticate.gateway";
-import { InMemoryUserRepository } from "../../repositories/implementations/in-memory/in-memory-user.user.repository";
-import { authenticateUseCaseBuild } from "../../usecases/authenticate.usecase";
+import { FirebaseAuthenticatorGateway } from "@/domains/users/gateways/implementation/firebase/firebase-authenticate.gateway";
+import { authenticateUseCaseBuild } from "@/domains/users/usecases/authenticate.usecase";
+import { PrismaUserRepository } from "@/domains/users/repositories/implementations/prisma";
 
-export const makeAuthenticateUseCase = () => authenticateUseCaseBuild(
-  FirebaseAuthenticatorGateway,
-  InMemoryUserRepository,
-)
+export const makeAuthenticateUseCase = () => {
+
+  const prismaUserRepository = new PrismaUserRepository()
+
+  return authenticateUseCaseBuild(
+    FirebaseAuthenticatorGateway,
+    prismaUserRepository,
+  )
+}

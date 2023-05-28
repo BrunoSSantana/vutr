@@ -15,12 +15,11 @@ export const authentification = async (request: FastifyRequest, reply: FastifyRe
     const user = await authenticateUseCase({ token });
 
     request.user = user;
- 
 
     next();
   }
   catch (error) {
-    return reply.status(403).send({ message: "Forbidden" });
+    return reply.status(403).send({ message: "Forbidden", error });
   }
 
 };

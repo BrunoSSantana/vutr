@@ -7,7 +7,7 @@ import {
 import { authentification } from "@/domains/auth/midlleware/firebase-authentication";
 
 export async function toolsRoutes(app: FastifyInstance) {
-  app.post("/tool", createToolControllerFactory());
-  app.get("/tools", { preHandler: [authentification], onRequest: [authentification] }, listToolControllerFactory());
-  app.delete("/tool/:toolId", deleteToolControllerFactory());
+  app.post("/tool", { onRequest: [authentification] }, createToolControllerFactory());
+  app.get("/tools", { onRequest: [authentification] }, listToolControllerFactory());
+  app.delete("/tool/:toolId", { onRequest: [authentification] }, deleteToolControllerFactory());
 }

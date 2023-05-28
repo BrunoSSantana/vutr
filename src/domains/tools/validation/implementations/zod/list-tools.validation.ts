@@ -7,7 +7,8 @@ export const buildListToolValidation: IListToolValidationBuild = <Type>() => {
     const resultToolListParse = toolListSchema.safeParse(listToolDTO);
 
     if (!resultToolListParse.success) {
-      throw new Error(formatZodError(resultToolListParse));
+      const error = formatZodError(resultToolListParse);      
+      throw new Error(error);
     }
 
     return resultToolListParse.data;
