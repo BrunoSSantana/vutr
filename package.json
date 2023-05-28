@@ -13,9 +13,8 @@
     "prisma:migrate:push": "prisma migrate deploy --schema=./src/infra/repositories/prisma/schema.prisma",
     "prisma:studio": "prisma studio --schema=./src/infra/repositories/prisma/schema.prisma",
     "deploy:db": "npm run prisma:generate && npm run prisma:migrate:push",
-    "test": "vitest run --dir src/domains/**/usecases --no-threads && vitest run --dir src/domains/**/validation --no-threads",
-    "test:watch": "vitest --dir src/usecases",
-    "test:e2e": "vitest run --dir src/domains/**/http --no-threads && vitest run --dir src/domains/**/repositories --no-threads",
+    "test": "vitest --config ./vite.config.js",
+    "test:e2e": "vitest run --config ./vite.config.e2e.js --no-threads",
     "test:e2e:watch": "vitest watch --dir src/domains/**/infra/http",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui"

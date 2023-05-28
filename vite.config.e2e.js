@@ -4,7 +4,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
   plugins: [tsconfigPaths()],
   test: {
-    name: 'unit',
-    exclude: [...defaultExclude, '**/http/**', '**/repositories/**']
+    name: 'integration',
+    exclude: [...defaultExclude, '**/usecases/**', '**/validation/**'],
+    include: ['**/http/**', '**/repositories/**']
   }
 });
