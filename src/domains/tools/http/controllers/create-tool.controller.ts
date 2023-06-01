@@ -10,7 +10,7 @@ export const createToolController =
     buildCreateToolUseCase: IBuildCreateToolUseCase,
     createToolValidation: ICreateToolValidation
   ) =>
-  async (request: FastifyRequest, reply: FastifyReply) => {
+  async (request: FastifyRequest, reply: FastifyReply) => {    
     const { title, description, link } = createToolValidation().validate(
       request.body
     );

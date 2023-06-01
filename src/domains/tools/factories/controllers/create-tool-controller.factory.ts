@@ -4,8 +4,9 @@ import { createToolUseCase } from "@/domains/tools/usecases/create-tool.usecase"
 import { createToolController } from "@/domains/tools/http/controllers";
 
 export const createToolControllerFactory = () => {
+  const prismaToolRepository = new PrismaToolRepository();
   return createToolController(
-    PrismaToolRepository,
+    prismaToolRepository,
     createToolUseCase,
     buildCreateToolValidation
   );

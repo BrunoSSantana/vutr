@@ -6,6 +6,6 @@ export default defineConfig({
   test: {
     name: 'integration',
     exclude: [...defaultExclude, '**/usecases/**', '**/validation/**'],
-    include: ['**/http/**', '**/repositories/**']
+    include: ['**/http/**/*.spec.ts', '**/repositories/**/*.spec.ts']
   }
 });
