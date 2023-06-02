@@ -1,25 +1,29 @@
-import { makeAuthenticateUseCase } from "@/domains/users/factories/usecases/authenticate-usecase.factory";
+import { AuthenticateUseCase } from "@/domains/users/usecases/authenticate.usecase";
 import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify";
 
-export const authentification = async (request: FastifyRequest, reply: FastifyReply, next: HookHandlerDoneFunction) => {
+export type AuthentificationFastify = (request: FastifyRequest, reply: FastifyReply, next: HookHandlerDoneFunction) => Promise<void>;
 
-  const token = request.headers.authorization?.split(" ")[1];
+type AuthentificationFastifyBuilder = (authenticateUseCase: AuthenticateUseCase) => AuthentificationFastify;
 
-  if (!token) {
-    return reply.status(401).send({ message: "Unauthorized" });
-  }
+export const authentificationBuilder: AuthentificationFastifyBuilder =
+  (authenticateUseCase) =>
+    async (request, reply, next) => {
 
-  try {
-    const authenticateUseCase = makeAuthenticateUseCase()
+      const token = request.headers.authorization?.split(" ")[1];      
 
-    const user = await authenticateUseCase({ token });
+      if (!token) {
+        return reply.status(401).send({ message: "Unauthorized" });
+      }
 
-    request.user = user;
+      try {
+        const user = await authenticateUseCase({ token });
 
-    next();
-  }
-  catch (error) {
-    return reply.status(403).send({ message: "Forbidden", error });
-  }
+        request.user = user;
 
-};
+        next();
+      }
+      catch (error) {        
+        return reply.status(403).send({ message: "Forbidden", error: new Error("Invalid token") });
+      }
+
+    };
