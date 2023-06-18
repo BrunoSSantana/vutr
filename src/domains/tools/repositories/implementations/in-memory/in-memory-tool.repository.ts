@@ -3,8 +3,8 @@ import {
   Tool,
   UpdateToolDTO,
   createTool,
-} from "@/domains/tools/tool.entity";
-import { IToolRepository } from "@/domains/tools/repositories/type";
+} from "@/domains/tools/entities/tool.entity";
+import { IToolRepository } from "@/domains/tools/repositories/types";
 
 const Tools: Record<number, Tool> = {};
 
@@ -29,13 +29,11 @@ export const InMemoryToolRepository: IToolRepository = {
         const search = listToolsDTO.search.toLowerCase();
 
         const title = tool.title.toLowerCase();
-        const description = tool.description.toLowerCase();
-        const tags = tool.tags.join(" ").toLowerCase();
+        const description = tool.description?.toLowerCase();
 
         const hasSearch =
           title.includes(search) ||
-          description.includes(search) ||
-          tags.includes(search);
+          description?.includes(search)
 
         return hasSearch;
       }

@@ -1,16 +1,21 @@
-import { CreateToolDTO } from "@/domains/tools";
-import { toolRegisterSchema } from "@/domains/tools/validation/implementations/zod/tool.schema";
+import { formatZodError } from "@/utils";
+
 import { ICreateToolValidation } from "@/domains/tools/validation/types";
+import { toolRegisterSchema } from "@/domains/tools/validation/implementations/zod/tool.schema";
 
 export const buildCreateToolValidation: ICreateToolValidation = <Type>() => {
   const validate = (createToolDTO: Type) => {
-    try {
-      const resultToolRegisterParse = toolRegisterSchema.parse(createToolDTO);
 
-      return resultToolRegisterParse as CreateToolDTO;
-    } catch (error) {
-      throw new Error(error);
+    const resultToolRegisterParse = toolRegisterSchema.safeParse(createToolDTO);
+
+    if (!resultToolRegisterParse.success) {
+
+      const errorsFormated = formatZodError(resultToolRegisterParse)
+      throw new Error(errorsFormated);
     }
+
+    return resultToolRegisterParse.data;
+
   };
 
   return {

@@ -4,8 +4,10 @@ import { deleteToolUseCase } from "@/domains/tools/usecases/delete-tool.usecase"
 import { deleteToolController } from "@/domains/tools/http/controllers";
 
 export const deleteToolControllerFactory = () => {
+  const prismaToolRepository = new PrismaToolRepository();
+
   return deleteToolController(
-    PrismaToolRepository,
+    prismaToolRepository,
     deleteToolUseCase,
     buildDeleteToolValidation
   );

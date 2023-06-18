@@ -1,4 +1,4 @@
-import { CreateToolDTO, DeleteToolDTO, ListToolsDTO } from "../tool.entity";
+import { CreateToolDTO, DeleteToolDTO, ListToolsDTO } from "@/domains/tools/entities";
 
 export type ICreateToolValidation = <Type>() => {
   validate: (createToolDTO: Type) => CreateToolDTO;

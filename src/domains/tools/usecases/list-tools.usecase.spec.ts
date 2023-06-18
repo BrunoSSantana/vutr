@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import { InMemoryToolRepository } from "@/domains/tools/repositories/implementations/in-memory";
 import { IToolRepository } from "@/domains/tools/repositories";
-import { ListToolsDTO } from "@/domains/tools";
+import { ListToolsDTO } from "@/domains/tools/entities";
 import { listToolUseCase, ListToolUseCase } from "@/domains/tools/usecases";
 
 describe("ListToolUseCase", () => {
@@ -135,6 +135,39 @@ describe("ListToolUseCase", () => {
 
     expect(tools2).toEqual(
       expect.arrayContaining([expect.objectContaining(nodeTool)])
+    );
+  });
+
+  it("should list all tools if no search is provided", async () => {
+    const denoTool = {
+      title: "Deno",
+      link: "https://deno.land/",
+      description:
+        "Deno is a simple, modern and secure runtime for JavaScript and TypeScript that uses V8 and is built in Rust.",
+      tags: ["runtime", "typescript", "javascript"],
+    };
+    toolsRepository.create(denoTool);
+
+    const nodeTool = {
+      title: "Node",
+      link: "https://nodejs.org/en/",
+      description:
+        "Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.",
+      tags: ["runtime", "javascript"],
+    };
+    toolsRepository.create(nodeTool);
+
+    const listToolDTO: ListToolsDTO = {};
+
+    const tools = await sut(listToolDTO);
+
+    expect(tools).toHaveLength(2);
+
+    expect(tools).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining(denoTool),
+        expect.objectContaining(nodeTool),
+      ])
     );
   });
 });

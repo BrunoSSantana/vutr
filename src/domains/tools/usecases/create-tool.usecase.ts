@@ -1,5 +1,5 @@
 import { IToolRepository } from "@/domains/tools/repositories";
-import { CreateToolDTO, Tool } from "@/domains/tools/tool.entity";
+import { CreateToolDTO, Tool } from "@/domains/tools/entities/tool.entity";
 
 export type ICreateToolUseCase = (createToolDTO: CreateToolDTO) => Promise<Tool>;
 

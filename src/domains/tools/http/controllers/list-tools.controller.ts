@@ -9,16 +9,16 @@ export const listToolController =
     buildListToolUseCase: BuildListToolUseCase,
     listToolValidation: IListToolValidationBuild
   ) =>
-  async (request: FastifyRequest, reply: FastifyReply) => {
-    const { limit, page, search } = listToolValidation().validate(
-      request.query
-    );
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const { limit, page, search } = listToolValidation().validate(
+        request.query
+      );
 
-    const tool = await buildListToolUseCase(listToolRepository)({
-      limit,
-      page,
-      search,
-    });
+      const tools = await buildListToolUseCase(listToolRepository)({
+        limit,
+        page,
+        search,
+      });
 
-    return reply.status(201).send(tool);
-  };
+      return reply.status(200).send(tools);
+    };

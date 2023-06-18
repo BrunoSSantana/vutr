@@ -5,7 +5,7 @@ import {
   deleteToolUseCase,
   IDeleteToolUseCase,
 } from "@/domains/tools/usecases";
-import { DeleteToolDTO } from "../tool.entity";
+import { DeleteToolDTO } from "../entities";
 
 describe("DeleteToolUseCase", () => {
   let toolsRepository: IToolRepository;
@@ -37,4 +37,14 @@ describe("DeleteToolUseCase", () => {
 
     expect(toolExists).toBe(false);
   });
+
+  it("should throw an error if tool does not exists", async () => {
+    const deleteToolDTO: DeleteToolDTO = {
+      toolId: 0,
+    };
+
+    await expect(sut(deleteToolDTO)).rejects.toThrow();
+  }
+
+  );
 });

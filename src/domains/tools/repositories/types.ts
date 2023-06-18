@@ -3,7 +3,7 @@ import {
   CreateToolDTO,
   ListToolsDTO,
   UpdateToolDTO,
-} from "@/domains/tools/tool.entity";
+} from "@/domains/tools/entities/tool.entity";
 
 export type IToolRepository = {
   create: (createToolDTO: CreateToolDTO) => Promise<Tool>;

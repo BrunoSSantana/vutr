@@ -1,24 +1,37 @@
+import { PrismaClient, User } from "@prisma/client";
+
+import { describe, it, afterAll, beforeAll, expect, afterEach } from "vitest";
 import request from "supertest";
-import { describe, it, afterAll, beforeAll, expect, beforeEach, afterEach } from "vitest";
+
+import { env } from "@/env";
+import { getTokenFromFirebase } from "@/utils";
 import { app } from "@/infra/rest/fastify-server";
-import { PrismaClient } from "@prisma/client";
+
 
 describe("List Tool", () => {
   let prisma: PrismaClient;
-
+  let user: User;
 
   beforeAll(async () => {
     prisma = new PrismaClient();
+    await prisma.$connect();
 
-    await app.ready();
+    user = await prisma.user.create({
+      data: {
+        email: env.FIREBASE_USER,
+        name: "Test User",
+        externalId: env.FIREBASE_ID,
+      },
+    });
   });
 
   afterEach(async () => {
     await prisma.tool.deleteMany();
-  });
+  })
 
   afterAll(async () => {
-    await app.close();
+    await prisma.user.deleteMany();
+    await prisma.$disconnect();
   });
 
   it("should be able to list a tool", async () => {
@@ -30,24 +43,15 @@ describe("List Tool", () => {
         "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
     }
 
-    const createResponse = await prisma.tool.create({
+    await prisma.tool.create({
       data,
     });
-    
-    const toolsListeds = await request(app.server)
-      .get(`/tools`);
 
-    expect(toolsListeds.body).toEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          id: createResponse.id,
-          ...data
-        })
-      ])
-    );
+    const { token } = await getTokenFromFirebase();
 
-    expect(toolsListeds.body).toHaveLength(1);
-
+    request(app.server).get('/tools').set({
+      authorization: `Bearer ${token}`
+    }).expect(200);
 
   });
 

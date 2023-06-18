@@ -4,8 +4,10 @@ import { listToolController } from "@/domains/tools/http/controllers";
 import { PrismaToolRepository } from "@/domains/tools/repositories/implementations/prisma";
 
 export const listToolControllerFactory = () => {
+  const prismaToolRepository = new PrismaToolRepository();
+
   return listToolController(
-    PrismaToolRepository,
+    prismaToolRepository,
     listToolUseCase,
     buildListToolValidation
   );
