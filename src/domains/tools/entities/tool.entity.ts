@@ -33,8 +33,8 @@ export const updateTool = (tool: Tool, updateToolDTO: UpdateToolDTO): Tool => {
 
 export type CreateToolDTO = {
   title: string;
-  link: string;
-  description: string;
+  link?: string;
+  description?: string;
   userId?: number;
 };
 

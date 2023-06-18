@@ -29,11 +29,11 @@ export const InMemoryToolRepository: IToolRepository = {
         const search = listToolsDTO.search.toLowerCase();
 
         const title = tool.title.toLowerCase();
-        const description = tool.description.toLowerCase();
+        const description = tool.description?.toLowerCase();
 
         const hasSearch =
           title.includes(search) ||
-          description.includes(search)
+          description?.includes(search)
 
         return hasSearch;
       }
