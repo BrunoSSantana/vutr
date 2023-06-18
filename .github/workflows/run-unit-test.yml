@@ -18,6 +18,26 @@ jobs:
       matrix:
         node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        
+    env:
+      API_PORT: 3000
+      JWT_SECRET: 'vutr-secret'
+
+      DATABASE_NAME: 'vutr'
+      DATABASE_USERNAME: 'vutr'
+      DATABASE_PASSWORD: 'vutrsecret'
+      DATABASE_PORT: 5432
+      DATABASE_URL: 'postgresql://vutr:vutrsecret@localhost:5432/vutr?schema:public'
+
+      FIREBASE_PROJECT_ID: 'letmeask-16e81'
+      FIREBASE_PRIVATE_KEY: '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCd0FAqCYN7cdnN\ngeEgdM8pZ+h1qBJQYsI0L5he2DuI/7Izj45GBlOlDoDD+uflAlcRRWW8QfhIu0yW\n3IfGRtTRln1GWwjaEAY70Whv3mBOBqYEvCixpfQKHklo+E/+7bgPt+sKs5EI/hbI\n4GfC94Q5qJQijLRfXray8qn08y4VLv9ZHpQCYaYMiez+CC4xem6OP4m8ojEvHq2f\nYhWXqWmQQQeqmLN+L5CDZNZ/pW34S10tz07uCgpiuglzwjo9V+UQ5mdGb+iIKqTt\nCaMexfEf6XTiEox4FaHGI0iJbrM7oYzheZQIE8i1OPVzHmWZ3SX/tAsrftSjODYe\nPYnnJl2jAgMBAAECggEAGe9gd+1vqJDcUh60cxNfRuxm/TcC030iHKtvEgndNuA2\nrAHn8sVwEkx2MumqxIMERg1ZRn1c+ARNS5mwd+WvbJubuOfrENMuAxSgt4nHL+t9\nyyy/pKT48dS/txA1LVhp4FjBuCosfVrXPxSfWMuOn7R/AR04jgJ7FKDhTM/OKfgj\ncsrukgLWQBYqf7wX1+5ppNwxGD0KKIv9UYDljbDWDSkPWmgDLvKs2RWAfqL7xYQm\nPFZ6b+rsNHXWGS0L6A3ZHZdxb8+fm62dciva+rQgKcMmjfWi7wLPJS2Frsmsf2qo\nIfGf9QEDiVMl6rPUkm1LbjGNJBZJfDnuxsY/zvmIgQKBgQDU5r4mxyAwvrQMZbA8\n+VRs6wzHLF0fDItcxVqCwGM7+hhvttA3gqYNfyPZ6L8Qz3AUjz734HIx9CzdUVJR\n7E07R5LBrc17NGz+tKbz7N7v9N4AEr0Mxrw3vcGfb0Gops2OEPRs5YjLTRWk310f\nDdE/blGqW/GCjzHZ2AGM38Gd4wKBgQC9wr8XB9VsAx6ezATjOAP+wUUcWkNx8yUW\nG1VwgShgvM3nE3t3d6d/TGyOraa5f4k7J5EzejNzQQRaSypz2Jog/EQqJl4Y2lTX\nRtBj+f7E0DtX4WLN1nd6bwQX386BWE7+qmJz1qAdlwKOKosnrEXB/d3Nd6jzSoZv\nhroXw4BNQQKBgARygXxb4n9CLI6pvSG475uK2Wx7r8JLR8n7UWWz0R7anZIP1o+i\nSge0JTKTGxKl0qiLSXxyEtCaUimZXkfZ0M8xMo6bK9SsBq7XZTlpNEr86XpE6fAP\nYrUjYJ0M/Okh+t9B2WlA7jeY95/HDrHsXvedPVV6sDPS++6aBYZE0k2TAoGAfNIu\nalLP00XWDXR8Po4pKpktAbJqLPlYSsteDywWSFPJSReqnnIJrpWxzsRxKBG5Tjz/\nqRHX6Bc7ar2Ixj0TXWEy4VrtiIGNTzIYf7sBF6s1beAm4ukRHGsMETw5lSFmjOO8\n8R+boPslRii78jPCixGXpcDxVF+QQKopnNoPekECgYEAqOj0Qg0TAYoTsOMHOkHt\nTASc5f/Yy2M7eVBYlZfWaG94GQIPoYrI+W7aFijx1b60HZ44ri7upduAFFY49ndF\nhL5s8oJHaaHZREt6Zljh+bnQW9AwVhw3qu4qhFPl/b/PWFbsfnJIY95fP7tVMWAe\nMXCI9Gv2rUCyEtWygnYr3Q4=\n-----END PRIVATE KEY-----\n'
+      FIREBASE_CLIENT_EMAIL: 'firebase-adminsdk-k9q8s@letmeask-16e81.i am.gserviceaccount.com'
+      FIREBASE_DATABASE_URL: 'https://letmeask-16e81-default-rtdb.firebaseio.com'
+
+      FIREBASE_API_KEY: 'AIzaSyDK0fZqkRwJ9sRDTEKwG-OhVk9UmriibMg'
+      FIREBASE_USER: 'bruno@bruno.me'
+      FIREBASE_PASSWORD: 'Usuario123@'
+      FIREBASE_ID: 'ZPJMMAw05RR0N0vltTfxLmBxPhm1'
 
     steps:
     - uses: actions/checkout@v3
