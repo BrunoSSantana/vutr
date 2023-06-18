@@ -12,6 +12,7 @@
     "prisma:migrate": "prisma migrate dev --schema=./src/infra/repositories/prisma/schema.prisma",
     "prisma:migrate:push": "prisma migrate deploy --schema=./src/infra/repositories/prisma/schema.prisma",
     "prisma:studio": "prisma studio --schema=./src/infra/repositories/prisma/schema.prisma",
+    "deploy:local": "npm run prisma:generate && npm run prisma:migrate:push && tsx watch src/server.ts",
     "deploy:db": "npm run prisma:generate && npm run prisma:migrate:push",
     "test": "vitest --config ./vite.config.js",
     "test:e2e": "vitest run --config ./vite.config.e2e.js --no-threads",

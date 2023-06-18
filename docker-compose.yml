@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   db-local:
     profiles:
@@ -16,12 +15,32 @@ services:
     volumes:
       - ./data/db-local:/var/lib/postgresql/data
 
+  api-local:
+    profiles:
+      - local
+    build:
+      context: .
+      dockerfile: ./build/local/Dockerfile
+    command: ./wait-for.sh db-local:5432 -- npm run deploy:local
+    hostname: api-local
+    restart: unless-stopped
+    ports:
+      - '${API_PORT:?API_PORT env var is missing on .env file}:5432'
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: 'development'
+      DATABASE_URL: 'postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@db-local:5432/${DATABASE_NAME}?schema=public'
+    volumes:
+      - ./src:/home/node/src
+    depends_on:
+      - db-local
+
   db-test:
     profiles:
       - test
     image: bitnami/postgresql:latest
     hostname: db-test
-    restart: unless-stopped
     ports:
       - '${DATABASE_PORT:?DATABASE_PORT env var is missing on .env file}:${DATABASE_PORT}'
     environment:
@@ -29,25 +48,22 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME:?DATABASE_USERNAME env var is missing on .env file}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?DATABASE_PASSWORD env var is missing on .env file}
 
-  # api-local:
-  #   profiles:
-  #     - local
-  #   build:
-  #     context: .
-  #     dockerfile: ./build/local/Dockerfile
-  #   hostname: api-local
-  #   restart: unless-stopped
-  #   ports:
-  #     - '${API_PORT:?API_PORT env var is missing on .env file}:5432'
-  #   env_file:
-  #     - .env
-  #   environment:
-  #     NODE_ENV: 'local'
-  #     DATABASE_HOST: 'db-local'
-  #     DATABASE_PORT: '5432'
-  #     DATABASE_URL: 'postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@db-local:5432/${DATABASE_NAME}?schema=public'
-  #   volumes:
-  #     - ./src:/home/node/src
-  #   depends_on:
-  #     - db-local
-  
+  api-test:
+    profiles:
+      - test
+    build:
+      context: .
+      dockerfile: ./build/local/Dockerfile
+    hostname: api-test
+    ports:
+      - '${API_PORT:?API_PORT env var is missing on .env file}:${API_PORT}'
+    env_file:
+      - .env
+    environment:
+      NODE_ENV: 'test'
+      DATABASE_HOST: 'db-test'
+      DATABASE_PORT: '5432'
+      DATABASE_URL: 'postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@db-test:5432/${DATABASE_NAME}?schema=public'
+      DATABASE_TEST_URL: 'postgresql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@db-test:5432/${DATABASE_NAME}?schema=public'
+    depends_on:
+      - db-test
