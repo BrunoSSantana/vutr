@@ -25,7 +25,8 @@ services:
     hostname: api-local
     restart: unless-stopped
     ports:
-      - '${API_PORT:?API_PORT env var is missing on .env file}:5432'
+      - '${API_PORT:?API_PORT env var is missing on .env file}:${API_PORT}'
+      - '4000:4000'
     env_file:
       - .env
     environment:
