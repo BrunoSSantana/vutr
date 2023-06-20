@@ -23,7 +23,7 @@ export const authentificationBuilder: AuthentificationFastifyBuilder =
         next();
       }
       catch (error) {        
-        return reply.status(403).send({ message: "Forbidden", error: new Error("Invalid token") });
+        return reply.status(403).send({ message: "Forbidden", error });
       }
 
     };
