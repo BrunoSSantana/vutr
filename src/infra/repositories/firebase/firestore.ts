@@ -13,4 +13,5 @@ export const bootFirebase = () => {
     credential: admin.credential.cert(serviceAccount),
     databaseURL: env.FIREBASE_DATABASE_URL,
   });
+  console.log("Firebase booted");
 };
