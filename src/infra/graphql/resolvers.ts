@@ -5,6 +5,7 @@ import {
   createToolResolverFactory,
   deleteToolResolverFactory,
 } from "@/domains/tools/factories/resolvers";
+import { createUserResolverFactory } from "@/domains/users/factories/resolvers/create-user-resolver.factory";
 
 type Context = {
   req: IncomingMessage;
@@ -29,8 +30,8 @@ export const resolvers = {
   },
 
   Mutation: {
-    tool: createToolResolverFactory(),
+    createTool: createToolResolverFactory(),
     deleteTool: deleteToolResolverFactory(),
-    // createUser: (parent: User, args: CreateUserDTO, contextValue: Context, info: GraphQLResolveInfo) => { },
+    createUser: createUserResolverFactory(),
   },
 };
