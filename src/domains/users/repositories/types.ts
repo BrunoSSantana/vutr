@@ -5,7 +5,7 @@ import {
   UpdateUserDTO,
 } from "@/domains/users/entities/user.entity";
 
-export type IUserRepository = {
+export interface IUserRepository {
   create: (createUserDTO: CreateUserDTO) => Promise<User>;
   update: (updateUserDTO: UpdateUserDTO) => Promise<User>;
   findByExternalId: (externalId: string) => Promise<User>;

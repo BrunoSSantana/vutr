@@ -27,10 +27,10 @@ describe("List Tool", () => {
 
   afterEach(async () => {
     await prisma.tool.deleteMany();
+    await prisma.user.deleteMany();
   })
 
   afterAll(async () => {
-    await prisma.user.deleteMany();
     await prisma.$disconnect();
   });
 

@@ -1,7 +1,7 @@
 import { PrismaToolRepository } from "@/domains/tools/repositories/implementations/prisma";
 import { buildDeleteToolValidation } from "@/domains/tools/validation/implementations/zod";
 import { deleteToolUseCase } from "@/domains/tools/usecases/delete-tool.usecase";
-import { deleteToolController } from "@/domains/tools/interfaces/controllers";
+import { deleteToolController } from "@/domains/tools/interfaces/rest/controllers";
 
 export const deleteToolControllerFactory = () => {
   const prismaToolRepository = new PrismaToolRepository();

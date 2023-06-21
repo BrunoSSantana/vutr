@@ -14,7 +14,7 @@
     "prisma:studio": "prisma studio --schema=./src/infra/repositories/prisma/schema.prisma",
     "deploy:local": "npm run prisma:generate && npm run prisma:migrate:push && tsx watch src/server.ts",
     "deploy:db": "npm run prisma:generate && npm run prisma:migrate:push",
-    "test": "vitest --config ./vite.config.js",
+    "test": "vitest --config ./vite.config.js --no-threads",
     "test:e2e": "vitest run --config ./vite.config.e2e.js --no-threads",
     "test:e2e:watch": "vitest watch --dir src/domains/**/infra/http",
     "test:coverage": "vitest run --coverage",
@@ -24,7 +24,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@apollo/server": "4.7.1",
+    "@apollo/server": "4.7.4",
     "@as-integrations/fastify": "2.0.0",
     "@prisma/client": "4.14.1",
     "buffer-from": "^1.1.2",

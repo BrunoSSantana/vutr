@@ -26,11 +26,11 @@ describe("Create Tool", () => {
   });
 
   afterEach(async () => {
+    await prisma.user.deleteMany();
     await prisma.tool.deleteMany();
   })
 
   afterAll(async () => {
-    await prisma.user.deleteMany();
     await prisma.$disconnect();
   });
 

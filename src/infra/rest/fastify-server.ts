@@ -4,7 +4,7 @@ import Fastify, {
   FastifyRequest,
 } from "fastify";
 import { ZodError } from "zod";
-import { toolsRoutes } from "@/domains/tools/interfaces/routes";
+import { toolsRoutes } from "@/domains/tools/interfaces/rest/routes";
 
 const PORT = Number(process.env.PORT) || 3000;
 
