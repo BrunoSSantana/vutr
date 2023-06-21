@@ -4,8 +4,10 @@ import { createToolUseCase } from "@/domains/tools/usecases/create-tool.usecase"
 import { createToolResolver } from "@/domains/tools/interfaces/resolvers";
 
 export const createToolResolverFactory = () => {
+  const prismaToolRepository = new PrismaToolRepository();
+
   return createToolResolver(
-    PrismaToolRepository,
+    prismaToolRepository,
     createToolUseCase,
     buildCreateToolValidation
   );

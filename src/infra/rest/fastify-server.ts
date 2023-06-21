@@ -5,12 +5,14 @@ import Fastify, {
 } from "fastify";
 import { ZodError } from "zod";
 import { toolsRoutes } from "@/domains/tools/interfaces/rest/routes";
+import { usersRoutes } from "@/domains/users/interfaces/rest/routes";
 
 const PORT = Number(process.env.PORT) || 3000;
 
 export const app: FastifyInstance = Fastify({});
 
 app.register(toolsRoutes);
+app.register(usersRoutes);
 
 app.setErrorHandler(
   (error: Error, _req: FastifyRequest, reply: FastifyReply) => {
