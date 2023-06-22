@@ -54,6 +54,10 @@ export class PrismaUserRepository implements IUserRepository {
             contains: search,
             mode: "insensitive",
           },
+          email: {
+            contains: search,
+            mode: "insensitive",
+          },
         },
         skip: (page - 1) * limit,
         take: limit,

@@ -12,6 +12,6 @@ export type IDeleteUserValidation = <Type>() => {
   validate: (deleteUserDTO: Type) => DeleteUserDTO;
 };
 
-export type IListUserValidation = <Type>() => {
+export type IListUsersValidation = <Type>() => {
   validate: (listUserDTO: Type) => ListUsersDTO;
 };
