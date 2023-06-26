@@ -12,6 +12,6 @@ export const createUserUseCaseBuild: IBuildCreateUserUseCase =
     try {
     await userRepository.create(createUserDTO);
     } catch (error) {
-      console.log(error);
+      throw new Error((error as Error).message);
     }
   }

@@ -12,9 +12,13 @@ export type IBuildAuthenticateUseCase = (
 
 export const authenticateUseCaseBuild: IBuildAuthenticateUseCase =
   (authenticatorGateway, userRepository) => async (authenticateDTO) => {
+    try {
     const { externalId } = await authenticatorGateway.authenticate(authenticateDTO);
 
     const user = await userRepository.findByExternalId(externalId);
 
     return user;
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
   }

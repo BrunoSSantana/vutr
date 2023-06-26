@@ -12,6 +12,6 @@ export const listUsersUseCaseBuild: IBuildListUsersUseCase =
     try {
       return userRepository.list(listUsersDTO);
     } catch (error) {
-      throw new Error((error as string));
+      throw new Error((error as Error).message);
     }
   }
