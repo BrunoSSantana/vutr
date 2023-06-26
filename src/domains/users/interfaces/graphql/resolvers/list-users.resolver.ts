@@ -7,7 +7,7 @@ import { IListUsersValidation } from "@/domains/users/validation/types";
 type ListUsersResolver = IFieldResolver<
   User,
   ListUsersDTO,
-  User[]
+  { users: User[] }
 >
 
 export const listUsersResolver =
@@ -16,8 +16,10 @@ export const listUsersResolver =
     buildListUsersUseCase: IBuildListUsersUseCase,
     listUsersValidation: IListUsersValidation
   ): ListUsersResolver =>
-  async (_parent, args, _contextValue, _info) => {
-    const params = listUsersValidation().validate(args);
+    async (_parent, args, _contextValue, _info) => {
+      const params = listUsersValidation().validate(args);
 
-    return buildListUsersUseCase(listUsersRepository)(params);
-  };
+      const users = await buildListUsersUseCase(listUsersRepository)(params);
+
+      return { users };
+    };

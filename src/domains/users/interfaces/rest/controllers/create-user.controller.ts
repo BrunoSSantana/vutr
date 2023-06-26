@@ -16,12 +16,10 @@ export const createUserController =
     );
     try {
 
-    const user = await buildCreateUserUseCase(createUserRepository)(params);
+    await buildCreateUserUseCase(createUserRepository)(params);
 
-    return reply.status(201).send(user);
-    } catch (error) {
-      console.log(error);
-      
+    return reply.status(201).send();
+    } catch (error) {      
       return reply.status(400).send({ error });
     }
   };
