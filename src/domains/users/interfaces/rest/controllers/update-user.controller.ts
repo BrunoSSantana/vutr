@@ -1,8 +1,12 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { IBuildUpdateUserUseCase } from "@/domains/users/usecases";
+import { UpdateUserRequest } from "@/domains/users/interfaces/rest/controllers";
 import { IUpdateUserValidation } from "@/domains/users/validation/types";
+import { IBuildUpdateUserUseCase } from "@/domains/users/usecases";
 import { IUserRepository } from "@/domains/users/repositories";
+import { UpdateUserDTO } from "@/domains/users/entities";
+
+type BodyUpdateUser = Omit<UpdateUserDTO, 'id'>;
 
 export const updateUserController =
   (
@@ -10,10 +14,10 @@ export const updateUserController =
     buildUpdateUserUseCase: IBuildUpdateUserUseCase,
     updateUserValidation: IUpdateUserValidation
   ) =>
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      const userUpdateDTO: Record<string, unknown> = {
-        userId: request.user?.id,
-        ...(request.body as Record<string, unknown>)
+    async (request: FastifyRequest<UpdateUserRequest>, reply: FastifyReply) => {
+      const userUpdateDTO: UpdateUserDTO = {
+        id: request.user!.id,
+        ...request.body,
       }
 
       const params = updateUserValidation().validate(
@@ -26,8 +30,6 @@ export const updateUserController =
 
         return reply.status(201).send(user);
       } catch (error) {
-        console.log(error);
-
         return reply.status(400).send({ error });
       }
     };

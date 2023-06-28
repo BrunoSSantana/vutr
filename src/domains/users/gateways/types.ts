@@ -4,7 +4,7 @@ export type AuthenticateDTO = {
 
 export type AuthenticateResponse = {
   externalId: string;
-  email?: string;
+  email: string;
 };
 
 export type IAuthenticatorGateway = {

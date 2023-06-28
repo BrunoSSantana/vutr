@@ -1,8 +1,10 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { IBuildDeleteUserUseCase } from "@/domains/users/usecases";
+import { DeleteUserRequest } from "@/domains/users/interfaces/rest/controllers";
 import { IDeleteUserValidation } from "@/domains/users/validation/types";
+import { IBuildDeleteUserUseCase } from "@/domains/users/usecases";
 import { IUserRepository } from "@/domains/users/repositories";
+import { DeleteUserDTO } from "@/domains/users/entities";
 
 export const deleteUserController =
   (
@@ -10,9 +12,9 @@ export const deleteUserController =
     buildDeleteUserUseCase: IBuildDeleteUserUseCase,
     deleteUserValidation: IDeleteUserValidation
   ) =>
-    async (request: FastifyRequest, reply: FastifyReply) => {
-      const userDeleteDTO = {
-        userId: request.user?.id,
+    async (request: FastifyRequest<DeleteUserRequest>, reply: FastifyReply) => {
+      const userDeleteDTO: DeleteUserDTO = {
+        userId: request.params.userId,
       }
 
       const params = deleteUserValidation().validate(

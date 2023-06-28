@@ -1,7 +1,8 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-import { IBuildListUsersUseCase } from "@/domains/users/usecases";
+import { ListUsersRequest } from "@/domains/users/interfaces/rest/controllers";
 import { IListUsersValidation } from "@/domains/users/validation/types";
+import { IBuildListUsersUseCase } from "@/domains/users/usecases";
 import { IUserRepository } from "@/domains/users/repositories";
 
 export const listUsersController =
@@ -10,18 +11,18 @@ export const listUsersController =
     buildListUsersUseCase: IBuildListUsersUseCase,
     listUsersValidation: IListUsersValidation
   ) =>
-  async (request: FastifyRequest, reply: FastifyReply) => {    
-    const params = listUsersValidation().validate(
-      request.query
-    );
-    try {
+    async (request: FastifyRequest<ListUsersRequest>, reply: FastifyReply) => {
+      const listUsersDTO = request.query;
 
-    const user = await buildListUsersUseCase(listUserRepository)(params);
+      const params = listUsersValidation().validate(
+        listUsersDTO
+      );
+      try {
 
-    return reply.status(201).send(user);
-    } catch (error) {
-      console.log(error);
-      
-      return reply.status(400).send({ error });
-    }
-  };
+        const user = await buildListUsersUseCase(listUserRepository)(params);
+
+        return reply.status(201).send(user);
+      } catch (error) {
+        return reply.status(400).send({ error });
+      }
+    };

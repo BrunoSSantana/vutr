@@ -1,9 +1,5 @@
 import { ICreateUserValidation } from "@/domains/users/validation/types";
 import { userRegisterSchema } from "@/domains/users/validation/implementations/zod/user.schema";
-import { object } from "zod";
-type ErrorZod = {
-  _errors: string;
-}
 
 export const buildCreateUserValidation: ICreateUserValidation = <Type>() => {
   const validate = (createUserDTO: Type) => {

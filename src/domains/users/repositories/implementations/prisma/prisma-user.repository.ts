@@ -7,15 +7,15 @@ import { CreateUserDTO, User, UpdateUserDTO, ListUsersDTO } from "@/domains/user
 export class PrismaUserRepository implements IUserRepository {
   private readonly prismaClient = new PrismaClient();
 
-  async create(createUserDTO: CreateUserDTO): Promise<User> {
+  async create(createUserDTO: CreateUserDTO): Promise<void> {
     try {
-      const user = await this.prismaClient.user.create({
+      await this.prismaClient.user.create({
         data: createUserDTO,
       });
-
-      return userParse(user);
-
     } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
       throw new Error("Error to create user");
     }
   }
@@ -32,11 +32,15 @@ export class PrismaUserRepository implements IUserRepository {
       throw new Error("Error to update user");
     }
   }
-  async findByExternalId(externalId: string): Promise<User> {
+  async findByExternalId(externalId: string): Promise<User | null> {
     try {
       const user = await this.prismaClient.user.findUnique({
         where: { externalId },
-      });      
+      });
+
+      if (!user) {
+        return null;
+      }
 
       return userParse(user);
 

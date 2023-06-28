@@ -4,7 +4,7 @@ export const userSchema = z.object({
   id: z.number().int().positive(),
   name: z.string().min(1).max(255),
   email: z.string().email(),
-  externalId: z.string().optional(),
+  externalId: z.string().nullable().optional().transform((value) => value === null ? undefined : value),
   avatar: z.string().nullable().optional().transform((value) => value === null ? undefined : value),
   bio: z.string().nullable().optional().transform((value) => value === null ? undefined : value),
   createdAt: z.date(),
@@ -14,6 +14,7 @@ export const userSchema = z.object({
 export const userRegisterSchema = z.object({
   name: z.string().min(1).max(255),
   email: z.string().email(),
+  externalId: z.string().optional(),
   bio: z.string().min(1).max(255).optional(),
 });
 

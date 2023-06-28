@@ -9,8 +9,8 @@ export type IBuildCreateUserUseCase = (
 
 export const createUserUseCaseBuild: IBuildCreateUserUseCase =
   (userRepository) => async (createUserDTO) => {
-    try {
-    await userRepository.create(createUserDTO);
+    try {      
+      await userRepository.create(createUserDTO);
     } catch (error) {
       throw new Error((error as Error).message);
     }
