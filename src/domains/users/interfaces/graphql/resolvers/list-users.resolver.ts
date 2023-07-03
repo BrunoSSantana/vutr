@@ -1,5 +1,5 @@
-import { ListUsersDTO, User } from "@/domains/users/entities";
 import { IFieldResolver } from "@/infra/graphql/resolvers";
+import { ListUsersDTO, User } from "@/domains/users/entities";
 import { IUserRepository } from "@/domains/users/repositories";
 import { IBuildListUsersUseCase } from "@/domains/users/usecases";
 import { IListUsersValidation } from "@/domains/users/validation/types";
@@ -7,7 +7,7 @@ import { IListUsersValidation } from "@/domains/users/validation/types";
 type ListUsersResolver = IFieldResolver<
   User,
   ListUsersDTO,
-  { users: User[] }
+  User[]
 >
 
 export const listUsersResolver =
@@ -21,5 +21,5 @@ export const listUsersResolver =
 
       const users = await buildListUsersUseCase(listUsersRepository)(params);
 
-      return { users };
+      return users;
     };

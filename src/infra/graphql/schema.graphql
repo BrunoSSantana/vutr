@@ -32,9 +32,12 @@ type Pagination {
   page: Int
   limit: Int
 }
+type ListToolsResponse {
+  tools: [Tool]!
+}
 
 type Query {
-  listTools(search: String, page: Int, limit: Int): [Tool]
+  listTools(search: String, page: Int, limit: Int): ListToolsResponse
 
   listUsers(search: String, page: Int, limit: Int): [User]
 }

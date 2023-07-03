@@ -27,8 +27,8 @@ export const userUpdateSchema = z.object({
 
 export const userListSchema = z.object({
   search: z.string().optional(),
-  page: z.number().int().positive().optional(),
-  limit: z.number().int().positive().optional(),
+  page: z.string().transform(Number).optional().or(z.number().optional()),
+  limit: z.string().transform(Number).optional().or(z.number().optional()),
 });
 
 export const userDeleteSchema = z.object({
