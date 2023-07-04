@@ -17,6 +17,7 @@ export const listToolResolver =
     listToolValidation: IListToolValidationBuild
   ): ListToolResolver =>
   async (_parent, args, _contextValue, _info) => {
+
     const { limit, page, search } = listToolValidation().validate(args);
 
     const tools = await buildListToolUseCase(listToolRepository)({

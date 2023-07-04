@@ -1,10 +1,10 @@
 import { z } from 'zod';
 
 export const userSchema = z.object({
-  id: z.number().int().positive(),
+  id: z.number().int(),
   name: z.string().min(1).max(255),
   email: z.string().email(),
-  externalId: z.string().optional(),
+  externalId: z.string().nullable().optional().transform((value) => value === null ? undefined : value),
   avatar: z.string().nullable().optional().transform((value) => value === null ? undefined : value),
   bio: z.string().nullable().optional().transform((value) => value === null ? undefined : value),
   createdAt: z.date(),
@@ -14,6 +14,7 @@ export const userSchema = z.object({
 export const userRegisterSchema = z.object({
   name: z.string().min(1).max(255),
   email: z.string().email(),
+  externalId: z.string().optional(),
   bio: z.string().min(1).max(255).optional(),
 });
 
@@ -26,10 +27,10 @@ export const userUpdateSchema = z.object({
 
 export const userListSchema = z.object({
   search: z.string().optional(),
-  page: z.number().int().positive().optional(),
-  limit: z.number().int().positive().optional(),
+  page: z.string().transform(Number).optional().or(z.number().optional()),
+  limit: z.string().transform(Number).optional().or(z.number().optional()),
 });
 
 export const userDeleteSchema = z.object({
-  userId: z.string().transform(Number),
+  userId: z.string().transform(Number).or(z.number()),
 });

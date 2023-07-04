@@ -1,5 +1,5 @@
 // import FastifyRequest from 'fastify/types/request';
-import { User } from '../users/entities';
+import { User } from '../domains/users/entities';
 
 declare module 'fastify' {
   interface FastifyRequest  {

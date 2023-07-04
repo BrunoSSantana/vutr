@@ -4,8 +4,9 @@ import { buildListToolValidation } from "@/domains/tools/validation/implementati
 import { PrismaToolRepository } from "@/domains/tools/repositories/implementations/prisma";
 
 export const listToolResolverFactory = () => {
+  const prismaToolRepository = new PrismaToolRepository();
   return listToolResolver(
-    PrismaToolRepository,
+    prismaToolRepository,
     listToolUseCase,
     buildListToolValidation
   );

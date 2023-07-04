@@ -27,8 +27,8 @@ export const toolUpdateSchema = z.object({
 
 export const toolListSchema = z.object({
   search: z.string().optional(),
-  page: z.string().transform(Number).optional(),
-  limit: z.string().transform(Number).optional(),
+  page: z.string().transform(Number).optional().or(z.number().optional()),
+  limit: z.string().transform(Number).optional().or(z.number().optional()),
 });
 
 export const toolDeleteSchema = z.object({

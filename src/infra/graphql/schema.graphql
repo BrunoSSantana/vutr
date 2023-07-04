@@ -1,9 +1,5 @@
-type Query {
-  tools(search: String, page: Int, limit: Int): [Tool]
-}
-
 type Tool {
-  id: ID!
+  id: Int!
   title: String
   link: String
   description: String
@@ -13,6 +9,39 @@ type Tool {
   updatedAt: String
 }
 
+type User {
+  id: Int!
+  name: String
+  email: String
+  externalId: String
+  bio: String
+  tools: [Tool]
+}
+
+type SearchUser {
+  name: String
+  email: String
+}
+
+type Tag {
+  id: Int!
+  title: String
+}
+
+type Pagination {
+  page: Int
+  limit: Int
+}
+type ListToolsResponse {
+  tools: [Tool]!
+}
+
+type Query {
+  listTools(search: String, page: Int, limit: Int): ListToolsResponse
+
+  listUsers(search: String, page: Int, limit: Int): [User]
+}
+
 # type AddToolMutationResponse {
 #   code: String!
 #   success: Boolean!
@@ -20,15 +49,11 @@ type Tool {
 #   tool: Tool
 # }
 
-type Tag {
-  id: ID!
-  title: String
-}
-
 type Mutation {
   createTool(title: String, link: String, description: String): Tool
-
-  deleteTool(toolId: ID!): Boolean
+  deleteTool(toolId: Int!): Boolean
 
   createUser(name: String, email: String, externalId: String, bio: String): Boolean
+  updateUser(id: Int!, name: String, email: String, externalId: String, bio: String): Boolean
+  deleteUser(userId: Int!): Boolean
 }

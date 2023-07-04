@@ -8,8 +8,8 @@ export const buildDeleteToolValidation: IDeleteToolValidation = <Type>() => {
     const resultToolDeleteParse = toolDeleteSchema.safeParse(deleteToolDTO);
 
     if (!resultToolDeleteParse.success) {
-      const errorsFormated = formatZodError(resultToolDeleteParse)
-      throw new Error(errorsFormated);
+      const errorsFormat = formatZodError(resultToolDeleteParse)
+      throw new Error(errorsFormat);
     }
 
     return resultToolDeleteParse.data;

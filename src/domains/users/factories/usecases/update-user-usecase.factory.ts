@@ -1,11 +1,11 @@
 import { PrismaUserRepository } from "@/domains/users/repositories/implementations/prisma";
-import { createUserUseCaseBuild } from "@/domains/users/usecases/create-user.usecase";
+import { updateUserUseCaseBuild } from "@/domains/users/usecases/update-user.usecase";
 
-export const makeCreateUserUseCase = () => {
+export const makeUpdateUserUseCase = () => {
 
   const prismaUserRepository = new PrismaUserRepository()
 
-  return createUserUseCaseBuild(
+  return updateUserUseCaseBuild(
     prismaUserRepository
   )
 }

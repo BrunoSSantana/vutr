@@ -1,5 +1,6 @@
 import { IUpdateUserValidation } from "@/domains/users/validation/types";
 import { userUpdateSchema } from "@/domains/users/validation/implementations/zod/user.schema";
+import { formatZodError } from "@/utils";
 
 export const buildUpdateUserValidation: IUpdateUserValidation = <Type>() => {
   const validate = (updateUserDTO: Type) => {
@@ -7,9 +8,9 @@ export const buildUpdateUserValidation: IUpdateUserValidation = <Type>() => {
     const resultUserUpdatedParse = userUpdateSchema.safeParse(updateUserDTO);
 
     if (!resultUserUpdatedParse.success) {
+      const errorsFormat = formatZodError(resultUserUpdatedParse);
 
-      const errorsFormated = resultUserUpdatedParse.error.format()._errors.map((error) => error).join('::')
-      throw new Error(errorsFormated);
+      throw new Error(`Error to parse user: ${errorsFormat}`);
     }
 
     return resultUserUpdatedParse.data;

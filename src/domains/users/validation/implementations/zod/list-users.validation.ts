@@ -1,7 +1,7 @@
-import { IListUserValidation } from "@/domains/users/validation/types";
+import { IListUsersValidation } from "@/domains/users/validation/types";
 import { userListSchema } from "@/domains/users/validation/implementations/zod/user.schema";
 
-export const buildListUserValidation: IListUserValidation = <Type>() => {
+export const buildListUsersValidation: IListUsersValidation = <Type>() => {
   const validate = (listUserDTO: Type) => {
 
     const resultUserListParse = userListSchema.safeParse(listUserDTO);

@@ -9,5 +9,5 @@ export const userParse = (user: unknown): User => {
     return userValidated.data;
   }
 
-  throw new Error("Error to parse user");
+  throw new Error(userValidated.error.message);
 }

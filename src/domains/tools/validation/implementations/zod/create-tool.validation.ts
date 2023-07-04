@@ -10,8 +10,8 @@ export const buildCreateToolValidation: ICreateToolValidation = <Type>() => {
 
     if (!resultToolRegisterParse.success) {
 
-      const errorsFormated = formatZodError(resultToolRegisterParse)
-      throw new Error(errorsFormated);
+      const errorsFormat = formatZodError(resultToolRegisterParse)
+      throw new Error(errorsFormat);
     }
 
     return resultToolRegisterParse.data;

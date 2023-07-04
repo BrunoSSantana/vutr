@@ -6,6 +6,7 @@ import {
   deleteToolResolverFactory,
 } from "@/domains/tools/factories/resolvers";
 import { createUserResolverFactory } from "@/domains/users/factories/resolvers/create-user-resolver.factory";
+import { deleteUserResolverFactory, listUsersResolverFactory, updateUserResolverFactory } from "@/domains/users/factories/resolvers";
 
 type Context = {
   req: IncomingMessage;
@@ -26,12 +27,17 @@ export type IFieldResolver<
 
 export const resolvers = {
   Query: {
-    tools: listToolResolverFactory(),
+    listTools: listToolResolverFactory(),
+    listUsers: listUsersResolverFactory(),
+
   },
 
   Mutation: {
     createTool: createToolResolverFactory(),
     deleteTool: deleteToolResolverFactory(),
+
     createUser: createUserResolverFactory(),
+    updateUser: updateUserResolverFactory(),
+    deleteUser: deleteUserResolverFactory(),
   },
 };

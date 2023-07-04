@@ -13,7 +13,7 @@ services:
       POSTGRES_USER: ${DATABASE_USERNAME:?DATABASE_USERNAME env var is missing on .env file}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?DATABASE_PASSWORD env var is missing on .env file}
     volumes:
-      - ./data/db-local:/var/lib/postgresql/data
+      - ./postgres:/bitnami/postgresql/data
 
   api-local:
     profiles:
