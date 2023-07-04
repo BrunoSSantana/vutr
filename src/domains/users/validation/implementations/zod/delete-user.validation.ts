@@ -1,5 +1,6 @@
 import { IDeleteUserValidation } from "@/domains/users/validation/types";
 import { userDeleteSchema } from "@/domains/users/validation/implementations/zod/user.schema";
+import { formatZodError } from "@/utils";
 
 export const buildDeleteUserValidation: IDeleteUserValidation = <Type>() => {
   const validate = (deleteUserDTO: Type) => {
@@ -8,8 +9,9 @@ export const buildDeleteUserValidation: IDeleteUserValidation = <Type>() => {
 
     if (!resultUserDeletedParse.success) {
 
-      const errorsFormated = resultUserDeletedParse.error.format()._errors.map((error) => error).join('::')
-      throw new Error(errorsFormated);
+      const errorsFormat = formatZodError(resultUserDeletedParse);
+
+      throw new Error(`Error to parse user: ${errorsFormat}`);
     }
 
     return resultUserDeletedParse.data;

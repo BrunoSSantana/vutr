@@ -1,5 +1,5 @@
 type Tool {
-  id: ID!
+  id: Int!
   title: String
   link: String
   description: String
@@ -10,7 +10,7 @@ type Tool {
 }
 
 type User {
-  id: ID!
+  id: Int!
   name: String
   email: String
   externalId: String
@@ -24,7 +24,7 @@ type SearchUser {
 }
 
 type Tag {
-  id: ID!
+  id: Int!
   title: String
 }
 
@@ -51,9 +51,9 @@ type Query {
 
 type Mutation {
   createTool(title: String, link: String, description: String): Tool
-  deleteTool(toolId: ID!): Boolean
+  deleteTool(toolId: Int!): Boolean
 
   createUser(name: String, email: String, externalId: String, bio: String): Boolean
-  updateUser(id: String!, name: String, email: String, externalId: String, bio: String): Boolean
-  deleteUser(id: String!): Boolean
+  updateUser(id: Int!, name: String, email: String, externalId: String, bio: String): Boolean
+  deleteUser(userId: Int!): Boolean
 }

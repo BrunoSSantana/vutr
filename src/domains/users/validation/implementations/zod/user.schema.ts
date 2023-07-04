@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const userSchema = z.object({
-  id: z.number().int().positive(),
+  id: z.number().int(),
   name: z.string().min(1).max(255),
   email: z.string().email(),
   externalId: z.string().nullable().optional().transform((value) => value === null ? undefined : value),
@@ -32,5 +32,5 @@ export const userListSchema = z.object({
 });
 
 export const userDeleteSchema = z.object({
-  userId: z.string().transform(Number),
+  userId: z.string().transform(Number).or(z.number()),
 });

@@ -18,8 +18,12 @@ export const listUsersResolver =
   ): ListUsersResolver =>
     async (_parent, args, _contextValue, _info) => {
       const params = listUsersValidation().validate(args);
-
+      try {
       const users = await buildListUsersUseCase(listUsersRepository)(params);
-
       return users;
+      } catch (error) {
+        throw new Error((error as Error).message);
+      }
+
+
     };
