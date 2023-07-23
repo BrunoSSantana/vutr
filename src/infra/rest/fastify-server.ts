@@ -9,6 +9,7 @@ import fastifyApollo from "@as-integrations/fastify";
 import { toolsRoutes } from "@/domains/tools/interfaces/rest/routes";
 import { usersRoutes } from "@/domains/users/interfaces/rest/routes";
 import { apolloServer } from "@/infra/graphql/apollo-server";
+import { contextAuth } from "@/domains/tools/factories/midllewares/firebase-authentication-apollo-factory";
 
 export const app: FastifyInstance = Fastify();
 
@@ -17,7 +18,9 @@ export const bootServers = async (appInstance: FastifyInstance) => {
 
   appInstance.register(toolsRoutes);
   appInstance.register(usersRoutes);
-  appInstance.register(fastifyApollo(apolloServer));
+  appInstance.register(fastifyApollo(apolloServer), {
+    context: contextAuth,
+  });
 
   appInstance.setErrorHandler(
     (error: Error, _req: FastifyRequest, reply: FastifyReply) => {
