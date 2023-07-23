@@ -1,11 +1,11 @@
 import { AuthenticateUseCase } from "@/domains/users/usecases/authenticate-usecase";
 import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify";
 
-export type AuthentificationFastify = (request: FastifyRequest, reply: FastifyReply, next: HookHandlerDoneFunction) => Promise<void>;
+export type AuthenticationFastify = (request: FastifyRequest, reply: FastifyReply, next: HookHandlerDoneFunction) => Promise<void>;
 
-type AuthentificationFastifyBuilder = (authenticateUseCase: AuthenticateUseCase) => AuthentificationFastify;
+type AuthenticationFastifyBuilder = (authenticateUseCase: AuthenticateUseCase) => AuthenticationFastify;
 
-export const authentificationBuilder: AuthentificationFastifyBuilder =
+export const authenticationBuilder: AuthenticationFastifyBuilder =
   (authenticateUseCase) =>
     async (request, reply, next) => {
 
