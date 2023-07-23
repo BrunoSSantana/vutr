@@ -1,11 +1,11 @@
 import { FastifyInstance } from "fastify";
 
-import { authentificationFirebaseWithFastify } from "@/domains/tools/factories/midllewares";
+import { authenticationFirebaseWithFastify } from "@/domains/tools/factories/midllewares";
 import {
   CreateUserRequest,
   ListUsersRequest,
   UpdateUserRequest,
-  DeleteUserRequest
+  DeleteUserRequest,
 } from "@/domains/users/interfaces/rest/controllers";
 import {
   createUserControllerFactory,
@@ -16,7 +16,19 @@ import {
 
 export async function usersRoutes(app: FastifyInstance) {
   app.post<CreateUserRequest>("/user", createUserControllerFactory());
-  app.get<ListUsersRequest>("/user", { onRequest: [authentificationFirebaseWithFastify] }, listUsersControllerFactory());
-  app.put<UpdateUserRequest>("/user", { onRequest: [authentificationFirebaseWithFastify] }, updateUserControllerFactory());
-  app.delete<DeleteUserRequest>("/user/:userId", { onRequest: [authentificationFirebaseWithFastify] }, deleteUserControllerFactory());
+  app.get<ListUsersRequest>(
+    "/user",
+    { onRequest: [authenticationFirebaseWithFastify] },
+    listUsersControllerFactory()
+  );
+  app.put<UpdateUserRequest>(
+    "/user",
+    { onRequest: [authenticationFirebaseWithFastify] },
+    updateUserControllerFactory()
+  );
+  app.delete<DeleteUserRequest>(
+    "/user/:userId",
+    { onRequest: [authenticationFirebaseWithFastify] },
+    deleteUserControllerFactory()
+  );
 }

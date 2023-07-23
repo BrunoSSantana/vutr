@@ -1,14 +1,26 @@
 import { FastifyInstance } from "fastify";
 
 import {
+  listToolControllerFactory,
   createToolControllerFactory,
   deleteToolControllerFactory,
-  listToolControllerFactory,
 } from "@/domains/tools/factories/controllers";
-import { authentificationFirebaseWithFastify } from "@/domains/tools/factories/midllewares";
+import { authenticationFirebaseWithFastify } from "@/domains/tools/factories/midllewares";
 
 export async function toolsRoutes(app: FastifyInstance) {
-  app.post("/tool", { onRequest: [authentificationFirebaseWithFastify] }, createToolControllerFactory());
-  app.get("/tools", { onRequest: [authentificationFirebaseWithFastify] }, listToolControllerFactory());
-  app.delete("/tool/:toolId", { onRequest: [authentificationFirebaseWithFastify] }, deleteToolControllerFactory());
+  app.post(
+    "/tool",
+    { onRequest: [authenticationFirebaseWithFastify] },
+    createToolControllerFactory()
+  );
+  app.get(
+    "/tools",
+    { onRequest: [authenticationFirebaseWithFastify] },
+    listToolControllerFactory()
+  );
+  app.delete(
+    "/tool/:toolId",
+    { onRequest: [authenticationFirebaseWithFastify] },
+    deleteToolControllerFactory()
+  );
 }
