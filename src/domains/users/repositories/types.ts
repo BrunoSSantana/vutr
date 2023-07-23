@@ -12,4 +12,4 @@ export interface IUserRepository {
   list: (listUserDTO: ListUsersDTO) => Promise<User[]>;
   delete: (id: number) => Promise<void>;
   deleteAll: () => Promise<void>;
-};
+}
