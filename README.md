@@ -16,4 +16,14 @@ npm run start:dev
 npm run start
 ```
 
+## Usage
+The API is running on port 3000 by default, you can change it in the .env file.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
+## Author
+
+- GitHub - [BrunoSSantana](https://github.com/BrunoSSantana)
+
 make with love <3 by BrunoSSantana
