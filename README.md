@@ -15,3 +15,5 @@ npm run start:dev
 # or
 npm run start
 ```
+
+make with love <3 by BrunoSSantana
