@@ -14,35 +14,34 @@ export const createUserController =
     buildCreateUserUseCase: IBuildCreateUserUseCase,
     createUserValidation: ICreateUserValidation
   ) =>
-    async (request: FastifyRequest<CreateUserRequest>, reply: FastifyReply) => {
-      try {
+  async (request: FastifyRequest<CreateUserRequest>, reply: FastifyReply) => {
+    try {
+      const token = request.headers.authorization?.split(" ")[1];
 
-        const token = request.headers.authorization?.split(" ")[1];
-
-        if (!token) {
-          return reply.status(401).send({ message: "Unauthorized" });
-        }
-
-        const { externalId, email } = await authenticatorGateway.authenticate({ token });
-
-        const createUserDTO: CreateUserDTO = {
-          ...request.body,
-          externalId,
-          email,
-        }
-
-        const params = createUserValidation().validate(
-          createUserDTO
-        );
-
-        await buildCreateUserUseCase(createUserRepository)(params);
-
-        return reply.status(201).send();
-      } catch (error) {
-        if (error instanceof Error) {
-          return reply.status(400).send({ message: error.message });
-        }
-
-        return reply.status(400).send({ error: "Bad Request" });
+      if (!token) {
+        return reply.status(401).send({ message: "Unauthorized" });
       }
-    };
+
+      const { externalId, email } = await authenticatorGateway.authenticate({
+        token,
+      });
+
+      const createUserDTO: CreateUserDTO = {
+        ...request.body,
+        externalId,
+        email,
+      };
+
+      const params = createUserValidation().validate(createUserDTO);
+
+      await buildCreateUserUseCase(createUserRepository)(params);
+
+      return reply.status(201).send();
+    } catch (error) {
+      if (error instanceof Error) {
+        return reply.status(400).send({ message: error.message });
+      }
+
+      return reply.status(400).send({ error: "Bad Request" });
+    }
+  };

@@ -1,13 +1,13 @@
 import { AuthenticateUseCase } from "@/domains/users/usecases/authenticate-usecase";
-import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify";
+import { FastifyReply, FastifyRequest } from "fastify";
 
-export type AuthentificationFastify = (request: FastifyRequest, reply: FastifyReply, next: HookHandlerDoneFunction) => Promise<void>;
+export type AuthenticationFastify = (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
 
-type AuthentificationFastifyBuilder = (authenticateUseCase: AuthenticateUseCase) => AuthentificationFastify;
+type AuthenticationFastifyBuilder = (authenticateUseCase: AuthenticateUseCase) => AuthenticationFastify;
 
-export const authentificationBuilder: AuthentificationFastifyBuilder =
+export const authenticationBuilder: AuthenticationFastifyBuilder =
   (authenticateUseCase) =>
-    async (request, reply, next) => {
+    async (request, reply) => {
 
       const token = request.headers.authorization?.split(" ")[1];
 
@@ -20,7 +20,6 @@ export const authentificationBuilder: AuthentificationFastifyBuilder =
 
         request.user = user;
 
-        next();
       }
       catch (error) {
 

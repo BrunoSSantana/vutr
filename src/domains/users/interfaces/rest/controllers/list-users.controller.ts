@@ -11,18 +11,15 @@ export const listUsersController =
     buildListUsersUseCase: IBuildListUsersUseCase,
     listUsersValidation: IListUsersValidation
   ) =>
-    async (request: FastifyRequest<ListUsersRequest>, reply: FastifyReply) => {
-      const listUsersDTO = request.query;
+  async (request: FastifyRequest<ListUsersRequest>, reply: FastifyReply) => {
+    const listUsersDTO = request.query;
 
-      const params = listUsersValidation().validate(
-        listUsersDTO
-      );
-      try {
+    const params = listUsersValidation().validate(listUsersDTO);
+    try {
+      const user = await buildListUsersUseCase(listUserRepository)(params);
 
-        const user = await buildListUsersUseCase(listUserRepository)(params);
-
-        return reply.status(201).send(user);
-      } catch (error) {
-        return reply.status(400).send({ error });
-      }
-    };
+      return reply.status(201).send(user);
+    } catch (error) {
+      return reply.status(400).send({ error });
+    }
+  };

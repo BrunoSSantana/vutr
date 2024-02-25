@@ -1,14 +1,14 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { FastifyReply, FastifyRequest, HookHandlerDoneFunction } from "fastify";
 
-import { AuthentificationFastify, authentificationBuilder } from "./firebase-authentication";
+import { authenticationBuilder } from "./firebase-fastify-authentication";
 import { bootFirebase } from "@/infra/repositories/firebase/firestore";
 
 const makeSut = () => {
-  const authentificationUseCaseSpy = vi.fn();
-  const sut = authentificationBuilder(authentificationUseCaseSpy)
+  const authenticationUseCaseSpy = vi.fn();
+  const sut = authenticationBuilder(authenticationUseCaseSpy)
 
-  return { sut, authentificationUseCaseSpy };
+  return { sut, authenticationUseCaseSpy };
 }
 
 describe("authentification", () => {
@@ -49,10 +49,10 @@ describe("authentification", () => {
 
     request.headers = { authorization: "Bearer invalid-token" };
 
-    const { sut, authentificationUseCaseSpy } = makeSut();
+    const { sut, authenticationUseCaseSpy } = makeSut();
 
     // Act
-    authentificationUseCaseSpy.mockRejectedValueOnce(new Error("Invalid token"));
+    authenticationUseCaseSpy.mockRejectedValueOnce(new Error("Invalid token"));
     const response = await sut(request, reply, next);
 
 
@@ -67,10 +67,10 @@ describe("authentification", () => {
     request.headers = { authorization: "Bearer valid-token" };
     const user = { id: "user-id", name: "John Doe" };
 
-    const { sut, authentificationUseCaseSpy } = makeSut();
+    const { sut, authenticationUseCaseSpy } = makeSut();
 
     // Act
-    authentificationUseCaseSpy.mockResolvedValueOnce(user);
+    authenticationUseCaseSpy.mockResolvedValueOnce(user);
     await sut(request, reply, next);
 
     // Assert

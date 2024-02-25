@@ -10,8 +10,8 @@ export type IBuildUpdateUserUseCase = (
 export const updateUserUseCaseBuild: IBuildUpdateUserUseCase =
   (userRepository) => async (updateUserDTO) => {
     try {
-    await userRepository.update(updateUserDTO);
+      await userRepository.update(updateUserDTO);
     } catch (error) {
       throw new Error((error as Error).message);
     }
-  }
+  };

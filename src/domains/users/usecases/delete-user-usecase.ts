@@ -1,7 +1,9 @@
 import { DeleteUserDTO } from "@/domains/users/entities";
 import { IUserRepository } from "@/domains/users/repositories/types";
 
-export type DeleteUserUseCase = (deleteUsersDTO: DeleteUserDTO) => Promise<void>;
+export type DeleteUserUseCase = (
+  deleteUsersDTO: DeleteUserDTO
+) => Promise<void>;
 
 export type IBuildDeleteUserUseCase = (
   userRepository: IUserRepository
@@ -14,4 +16,4 @@ export const deleteUserUseCaseBuild: IBuildDeleteUserUseCase =
     } catch (error) {
       throw new Error((error as Error).message);
     }
-  }
+  };

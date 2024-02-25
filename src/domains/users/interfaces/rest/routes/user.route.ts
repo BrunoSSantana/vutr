@@ -1,11 +1,11 @@
 import { FastifyInstance } from "fastify";
 
-import { authentificationFirebaseWithFastify } from "@/domains/tools/factories/midllewares";
+import { authenticationFirebaseWithFastify } from "@/domains/tools/factories/midllewares";
 import {
   CreateUserRequest,
   ListUsersRequest,
   UpdateUserRequest,
-  DeleteUserRequest
+  DeleteUserRequest,
 } from "@/domains/users/interfaces/rest/controllers";
 import {
   createUserControllerFactory,
@@ -14,9 +14,16 @@ import {
   listUsersControllerFactory,
 } from "@/domains/users/factories/controllers";
 
+const createUserHandler = createUserControllerFactory();
+const listUsersHandler = listUsersControllerFactory();
+const updateUserHandler = updateUserControllerFactory();
+const deleteUserHandler = deleteUserControllerFactory();
+
+const options = { onRequest: [authenticationFirebaseWithFastify] };
+
 export async function usersRoutes(app: FastifyInstance) {
-  app.post<CreateUserRequest>("/user", createUserControllerFactory());
-  app.get<ListUsersRequest>("/user", { onRequest: [authentificationFirebaseWithFastify] }, listUsersControllerFactory());
-  app.put<UpdateUserRequest>("/user", { onRequest: [authentificationFirebaseWithFastify] }, updateUserControllerFactory());
-  app.delete<DeleteUserRequest>("/user/:userId", { onRequest: [authentificationFirebaseWithFastify] }, deleteUserControllerFactory());
+  app.post<CreateUserRequest>("/user", createUserHandler);
+  app.get<ListUsersRequest>("/user", options, listUsersHandler);
+  app.put<UpdateUserRequest>("/user", options, updateUserHandler);
+  app.delete<DeleteUserRequest>("/user/:userId", options, deleteUserHandler);
 }

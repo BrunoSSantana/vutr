@@ -2,7 +2,12 @@ import { PrismaClient } from "@prisma/client";
 
 import { userParse } from "@/domains/users/entities/user-parse";
 import { IUserRepository } from "@/domains/users/repositories/types";
-import { CreateUserDTO, User, UpdateUserDTO, ListUsersDTO } from "@/domains/users/entities";
+import {
+  User,
+  ListUsersDTO,
+  CreateUserDTO,
+  UpdateUserDTO,
+} from "@/domains/users/entities";
 
 export class PrismaUserRepository implements IUserRepository {
   private readonly prismaClient = new PrismaClient();
@@ -27,7 +32,6 @@ export class PrismaUserRepository implements IUserRepository {
       });
 
       return userParse(user);
-
     } catch (error) {
       throw new Error("Error to update user");
     }
@@ -43,7 +47,6 @@ export class PrismaUserRepository implements IUserRepository {
       }
 
       return userParse(user);
-
     } catch (error) {
       throw new Error("Error to find user");
     }
@@ -68,7 +71,6 @@ export class PrismaUserRepository implements IUserRepository {
       });
 
       return users.map(userParse);
-
     } catch (error) {
       throw new Error("Error to list users");
     }
@@ -78,7 +80,6 @@ export class PrismaUserRepository implements IUserRepository {
       await this.prismaClient.user.delete({
         where: { id },
       });
-
     } catch (error) {
       throw new Error("Error to delete user");
     }
@@ -86,7 +87,6 @@ export class PrismaUserRepository implements IUserRepository {
   async deleteAll(): Promise<void> {
     try {
       await this.prismaClient.user.deleteMany();
-
     } catch (error) {
       throw new Error("Error to delete all users");
     }

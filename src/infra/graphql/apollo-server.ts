@@ -1,38 +1,25 @@
-import { IncomingMessage, ServerResponse } from "http";
 import { readFileSync } from "fs";
-
-import { startStandaloneServer } from "@apollo/server/standalone";
 import { ApolloServer } from "@apollo/server";
+import fastify, { FastifyInstance } from "fastify";
+import { fastifyApolloDrainPlugin } from "@as-integrations/fastify";
 
-import { resolvers } from "./resolvers";
+import { User } from "@/domains/users/entities";
+import { resolvers } from "@/infra/graphql/resolvers";
 
-type ParamsContext = {
-  req: IncomingMessage;
-  res: ServerResponse<IncomingMessage>;
-};
+export const app: FastifyInstance = fastify();
 
-async function  context (params:ParamsContext) {
-  const { req, res } = params;
-
-  return {
-    req,
-    res,
-  }
+export type ContextAuth = {
+  user: User;
 };
 
 const typeDefs = readFileSync("./src/infra/graphql/schema.graphql", {
   encoding: "utf-8",
 });
 
-const server = new ApolloServer({
+export const apolloServer = new ApolloServer<ContextAuth>({
   typeDefs,
   resolvers: resolvers,
+  plugins: [fastifyApolloDrainPlugin(app)],
 });
 
-export const apolloGQLServerStart = async () => {
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-    context,
-  });
-  console.log(`🚀 API GRAPHQL Running in ${url}`);
-};
+await apolloServer.start();

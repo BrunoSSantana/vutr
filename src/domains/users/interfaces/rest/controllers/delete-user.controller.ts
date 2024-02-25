@@ -12,21 +12,18 @@ export const deleteUserController =
     buildDeleteUserUseCase: IBuildDeleteUserUseCase,
     deleteUserValidation: IDeleteUserValidation
   ) =>
-    async (request: FastifyRequest<DeleteUserRequest>, reply: FastifyReply) => {
-      const userDeleteDTO: DeleteUserDTO = {
-        userId: request.params.userId,
-      }
-
-      const params = deleteUserValidation().validate(
-        userDeleteDTO
-      );
-
-      try {
-
-        await buildDeleteUserUseCase(deleteUserRepository)(params);
-
-        return reply.status(201).send();
-      } catch (error) {
-        return reply.status(400).send({ error });
-      }
+  async (request: FastifyRequest<DeleteUserRequest>, reply: FastifyReply) => {
+    const userDeleteDTO: DeleteUserDTO = {
+      userId: request.params.userId,
     };
+
+    const params = deleteUserValidation().validate(userDeleteDTO);
+
+    try {
+      await buildDeleteUserUseCase(deleteUserRepository)(params);
+
+      return reply.status(201).send();
+    } catch (error) {
+      return reply.status(400).send({ error });
+    }
+  };

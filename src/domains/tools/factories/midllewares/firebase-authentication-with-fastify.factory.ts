@@ -1,6 +1,6 @@
-import { authentificationBuilder } from "@/domains/auth/midlleware/firebase-authentication";
 import { makeAuthenticateUseCase } from "@/domains/users/factories/usecases/authenticate-usecase.factory";
+import { authenticationBuilder } from "@/infra/rest/middleware/firebase-fastify-authentication";
 
-export const authentificationFirebaseWithFastify = authentificationBuilder(
+export const authenticationFirebaseWithFastify = authenticationBuilder(
   makeAuthenticateUseCase()
 );
