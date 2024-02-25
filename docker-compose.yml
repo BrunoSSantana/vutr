@@ -3,8 +3,9 @@ services:
   db-local:
     profiles:
       - local
-    image: bitnami/postgresql:latest
+    image: postgres:15.5-alpine
     hostname: db-local
+    container_name: tpm_db
     restart: unless-stopped
     ports:
       - '${DATABASE_PORT:?DATABASE_PORT env var is missing on .env file}:${DATABASE_PORT}'
@@ -21,7 +22,6 @@ services:
     build:
       context: .
       dockerfile: ./build/local/Dockerfile
-    command: ./wait-for.sh db-local:5432 -- npm run deploy:local
     hostname: api-local
     restart: unless-stopped
     ports:
